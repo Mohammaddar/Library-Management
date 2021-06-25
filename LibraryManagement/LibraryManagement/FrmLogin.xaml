@@ -1,0 +1,201 @@
+﻿<Window x:Class="LibraryManagement.FrmLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraryManagement"
+        mc:Ignorable="d"
+        Title="FrmLogin" Height="500" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="tmpBtnSignup" TargetType="Button">
+            <TextBox x:Name="txtSignup"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Text="{TemplateBinding Content}"
+                     Background="Transparent"
+                     Foreground="{TemplateBinding Foreground}"
+                     FontWeight="{TemplateBinding FontWeight}"
+                     FontSize="{TemplateBinding FontSize}"
+                     BorderThickness="0"
+                     TextDecorations="Underline"
+                     IsReadOnly="True"
+                     IsEnabled="False"/>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver"
+                         Value="true">
+                    <Setter Property="Foreground"
+                            TargetName="txtSignup"
+                            Value="#005A8D"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo/>
+    </Window.TaskbarItemInfo>
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+            <GradientStop Color="#FFFFF5FD"/>
+            <GradientStop Color="#FFD2CDFF" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                       Content="Library &#x0a;Management"
+                       Foreground="#FF022E57"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="60,24,0,0"
+                       FontWeight="Bold"
+                       FontFamily="Fonts/#Arvo"/>
+            <Image
+                       Source="Images/books.png" RenderTransformOrigin="0.5,0.5" Margin="-88,70,-116.6,-10.8" Grid.RowSpan="3">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-20"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal">
+                <TextBlock Text="Don't you have an acount?"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Bottom"
+                           FontSize="11"
+                           Foreground="#FF007BC2"
+                           Margin="30,0,0,18"/>
+                <Button Content ="Sign up"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Bottom"
+                         FontStyle="Italic"
+                         FontWeight="Bold"
+                         FontSize="12"
+                         Margin="2,0,0,18"
+                         Foreground="#FFF5A962"
+                         Template="{StaticResource tmpBtnSignup}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1"
+              Margin="0,60,0,30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Vertical"
+                        Margin="5,30,5,0">
+                <TextBlock Grid.Row="0"
+                               Text="Login as"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="22"
+                               Foreground="#FF022E57"
+                               FontFamily="Fonts/#Titillium Web"/>
+                <Grid Grid.Row="1"
+                      Margin="26,20,26,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton x:Name="rbAdmin"
+                                 Grid.Column="0"
+                                 Content="Admin"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Foreground="#FF005A8D"
+                                 FontSize="10"
+                                 VerticalContentAlignment="Center"
+                                 FontFamily="Fonts/#Titillium Web"
+                                 IsChecked="True"/>
+                    <RadioButton Name="rbEmployee"
+                                 Grid.Column="1"
+                                 Content="Employee"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Foreground="#FF005A8D"
+                                 FontSize="10"
+                                 VerticalContentAlignment="Center"
+                                 FontFamily="Fonts/#Titillium Web"/>
+                    <RadioButton Name="rbMember"
+                                 Grid.Column="2"
+                                 Content="Member"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Foreground="#FF005A8D"
+                                 FontSize="10"
+                                 VerticalContentAlignment="Center"
+                                 FontFamily="Fonts/#Titillium Web"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Orientation="Vertical">
+                <TextBlock Text="User Name :"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Background="Transparent"
+                               Foreground="#FF005A8D"
+                               FontSize="12"
+                               Margin="45,0,0,2"
+                               FontFamily="Fonts/#Titillium Web"/>
+                <TextBox Name="edtUserName"
+                         Width="180"
+                         Height="40"
+                             VerticalAlignment="Stretch"
+                             HorizontalAlignment="Stretch"
+                             VerticalContentAlignment="Center"
+                             Template="{DynamicResource tmpRoundedTextBox}"
+                             FontFamily="Fonts/#Titillium Web"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2"
+                        Orientation="Vertical">
+                <TextBlock Text="Password :"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Background="Transparent"
+                           Foreground="#FF005A8D"
+                           FontSize="12"
+                           Margin="45,0,0,2"
+                           FontFamily="Fonts/#Titillium Web"/>
+                <PasswordBox Name="edtPassword"
+                             Grid.Row="2"
+                             VerticalAlignment="Stretch"
+                             HorizontalAlignment="Stretch"
+                             VerticalContentAlignment="Center"
+                             Template="{DynamicResource tmpRoundedPassBox}"
+                             FontFamily="Fonts/#Titillium Web"/>
+            </StackPanel>
+            <Button Name="btnLogin"
+                    Grid.Row="3"
+                    Content="Login"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    Margin="75,37,75,18"
+                    Template="{DynamicResource tmpRoundedButton}" 
+                    Background="#FF022E57"
+                    BorderBrush="#FF253443"
+                    Foreground="White"
+                    FontFamily="Fonts/#Titillium Web"
+                    FontWeight="Bold"/>
+            
+        </Grid>
+    </Grid>
+</Window>
