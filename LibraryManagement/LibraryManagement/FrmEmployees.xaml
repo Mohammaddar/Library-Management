@@ -1,4 +1,4 @@
-﻿<Window x:Class="LibraryManagement.FrmEmployees"
+<Window x:Class="LibraryManagement.FrmEmployees"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,14 +8,14 @@
         Title="FrmEmployees"
         Height="570"
         Width="920"
-        Background="#F4F9F9">
+        Background="#F6F5F5">
     <Window.Resources>
         <ControlTemplate x:Key="tmpTabItem" TargetType="RadioButton">
             <Border x:Name="borderTabItem"
                     Background="Transparent">
                 <Label Name="lblTabItem"
                     Content="{TemplateBinding Content}"
-                       Foreground="#005A8D"
+                       Foreground="#145374"
                        FontSize="{TemplateBinding FontSize}"
                    Background="Transparent"
                        VerticalAlignment="Center"
@@ -63,7 +63,7 @@
                          SourceName="gridTabItem2">
                     <Setter Property="Background"
                             TargetName="borderTabItem2"
-                            Value="#FFDBE6FD"/>
+                            Value="#D3E0EA"/>
                 </Trigger>
                 <Trigger Property="IsSelected"
                          Value="true">
@@ -139,19 +139,19 @@
                          Value="true">
                     <Setter Property="Background"
                             TargetName="borderListItem"
-                            Value="#FFDBCEFD"/>
+                            Value="#D3E0EA"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver"
                          Value="true">
                     <Setter Property="Background"
                             TargetName="borderListItem"
-                            Value="#FFD2DFFB"/>
+                            Value="#FFEAF1F6"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListBoxBooks" TargetType="ListBox">
             <Border BorderThickness="0,1,0,0"
-                    BorderBrush="#7F404A96"
+                    BorderBrush="#7F4F5688"
                     Background="Transparent"
                     Margin="6,-2.5,6,0">
                 <StackPanel Orientation="Vertical"
@@ -279,19 +279,19 @@
                          Value="true">
                     <Setter Property="Background"
                             TargetName="borderListItem"
-                            Value="#FFDBCEFD"/>
+                            Value="#D3E0EA"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver"
                          Value="true">
                     <Setter Property="Background"
                             TargetName="borderListItem"
-                            Value="#FFD2DFFB"/>
+                            Value="#FFEAF1F6"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListBoxMembers" TargetType="ListBox">
             <Border BorderThickness="0,1,0,0"
-                    BorderBrush="#7F404A96"
+                    BorderBrush="#7F4F5688"
                     Background="Transparent"
                     Margin="6,-2.5,6,0">
                 <StackPanel Orientation="Vertical"
@@ -378,7 +378,7 @@
                 </Grid.Clip>
                 <Label Grid.Row="0"
                        Content="Employees &#x0a;Panel"
-                       Foreground="#FF022E57"
+                       Foreground="#053742"
                        FontSize="21"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
@@ -390,28 +390,28 @@
                          Template="{StaticResource tmpTabItem}"
                          Content="Books"
                          FontSize="18"
-                         Foreground="#FF022E57"
-                         IsChecked="True" Checked="rbBooks_Checked"/>
+                         IsChecked="True"
+                             Checked="rbBooks_Checked"/>
                 <RadioButton x:Name="rbMembers"
                          Grid.Row="2"
                          Template="{StaticResource tmpTabItem}"
                          Content="Members"
                          FontSize="18"
-                         Foreground="#FF022E57" Checked="rbMembers_Checked"/>
+                             Checked="rbMembers_Checked"/>
                 <RadioButton x:Name="rbWallet"
                          Grid.Row="3"
                          Template="{StaticResource tmpTabItem}"
                          Content="Wallet"
                          FontSize="18"
-                         Foreground="#FF022E57" Checked="rbWallet_Checked"/>
+                             Checked="rbWallet_Checked"/>
                 <RadioButton x:Name="rbInfo"
                          Grid.Row="4"
                          Template="{StaticResource tmpTabItem}"
                          Content="Info"
                          FontSize="18"
-                         Foreground="#FF022E57" Checked="rbInfo_Checked"/>
+                             Checked="rbInfo_Checked"/>
                 <Rectangle
-                           Fill="#005A8D"
+                           Fill="#47597E"
                            Grid.Row="5" RenderTransformOrigin="0.5,0.5" Margin="61,116.2,-32.4,-36.2">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
@@ -423,7 +423,7 @@
                     </Rectangle.RenderTransform>
                 </Rectangle>
                 <Rectangle
-                           Fill="#022E57"
+                           Fill="#293B5F"
                            Grid.Row="5" Margin="-47,138.2,100.6,-20.2" RenderTransformOrigin="0.5,0.5">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
@@ -701,7 +701,7 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Background="Transparent"
-                                            Foreground="#FF005A8D"
+                                            Foreground="#145374"
                                             FontSize="12"
                                             Margin="70,0,0,2"
                                             FontFamily="Fonts/#Titillium Web"/>
@@ -722,7 +722,7 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Background="Transparent"
-                                            Foreground="#FF005A8D"
+                                            Foreground="#145374"
                                             FontSize="12"
                                             Margin="70,0,0,2"
                                             FontFamily="Fonts/#Titillium Web"/>
@@ -751,7 +751,7 @@
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Left"
                                             Background="Transparent"
-                                            Foreground="#FF005A8D"
+                                            Foreground="#145374"
                                             FontSize="12"
                                             Margin="0,0,0,2"
                                             FontFamily="Fonts/#Titillium Web"/>
@@ -772,7 +772,7 @@
                                                    VerticalAlignment="Center"
                                                     HorizontalAlignment="Left"
                                                     Background="Transparent"
-                                                    Foreground="#FF005A8D"
+                                                    Foreground="#145374"
                                                     FontSize="12"
                                                     Margin="70,0,0,2"
                                                     FontFamily="Fonts/#Titillium Web"/>
@@ -785,7 +785,7 @@
                                                      VerticalContentAlignment="Center"
                                                      Template="{DynamicResource tmpRoundedPassBox}"
                                                      FontFamily="Fonts/#Titillium Web"
-                                                     Background="#FFDCE6F7"/>
+                                                     Background="#FFEAE9EC"/>
                                     </StackPanel>
                                 </Grid>
                             </Grid>
