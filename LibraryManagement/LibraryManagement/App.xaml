@@ -1,8 +1,8 @@
-﻿<Application x:Class="LibraryManagement.App"
+<Application x:Class="LibraryManagement.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:LibraryManagement"
-             StartupUri="FrmEmployees.xaml">
+             StartupUri="FrmLogin.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ControlTemplate x:Key="tmpEditButton" TargetType="Button">
@@ -20,26 +20,36 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <ControlTemplate x:Key="tmpRoundedButton" TargetType="Button">
-                <Grid>
-                    <Border x:Name="btnBorder"
-                        CornerRadius="20"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Text="{TemplateBinding Content}"
-                         Background="Transparent"
-                         Foreground="{TemplateBinding Foreground}"
-                         FontWeight="Bold"
-                         FontSize="16"/>
-                </Grid>
+                <Border x:Name="btnBorder"
+                        CornerRadius="16"
+                        Background="{TemplateBinding Background}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{TemplateBinding Content}"
+                                   Background="Transparent"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Margin="10,0,0,0"/>
+                        <Image Grid.Column="1"
+                           Width="24"
+                           Height="24"
+                           Source="Images/login.png"/>
+                    </Grid>
+                </Border>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver"
                          Value="true">
                         <Setter Property="Background"
                             TargetName="btnBorder"
-                            Value="#005A8D"/>
+                            Value="#FF33555D"/>
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -93,9 +103,9 @@
                 <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                     <Border x:Name="txtBoxBorder"
                         CornerRadius="14"
-                        Background="White"
-                        BorderBrush="#4CCBCDEE"
-                        BorderThickness="0.3"/>
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="#FFE4E3E5"
+                        BorderThickness="0.4"/>
                     <TextBox HorizontalAlignment="Stretch"
                          VerticalAlignment="Stretch"
                          Margin="12,6,12,6"
@@ -108,7 +118,7 @@
                     <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Background"
                             TargetName="txtBoxBorder"
-                            Value="AliceBlue"/>
+                            Value="#FFEAF1F6"/>
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -117,8 +127,8 @@
                     <Border x:Name="passBoxBorder"
                         CornerRadius="14"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="#4CCBCDEE"
-                        BorderThickness="0.3"/>
+                        BorderBrush="#FFE4E3E5"
+                        BorderThickness="0.4"/>
                     <PasswordBox HorizontalAlignment="Stretch"
                          VerticalAlignment="Stretch"
                          Margin="12,6,12,6"
@@ -130,7 +140,7 @@
                     <Trigger Property="IsMouseOver" Value="true">
                         <Setter Property="Background"
                             TargetName="passBoxBorder"
-                            Value="#FFCAD6F0"/>
+                            Value="#FFEAF1F6"/>
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -225,11 +235,11 @@
                 </Border>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background" TargetName="borderElevatedBtn" Value="#FFDBE6FD"/>
+                        <Setter Property="Background" TargetName="borderElevatedBtn" Value="#FFEAF1F6"/>
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
