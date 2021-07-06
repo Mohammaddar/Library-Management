@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,36 +15,19 @@ using System.Windows.Shapes;
 
 namespace LibraryManagement
 {
-    /// <summary>
-    /// Interaction logic for FrmEmployees.xaml
-    /// </summary>
+
     public partial class FrmEmployees : Window
     {
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         public FrmEmployees()
         {
             InitializeComponent();
-            List<lsAllBooksItem> lsAllBooksItems = new List<lsAllBooksItem>();
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 1, Info1 ="thhr", Info2 = "awfeafedaw", Info3 = "herhafd", Info4 = "awdawd" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 2, Info1 ="faeeafa", Info2 = "afeaaf", Info3 = "acabrbrs", Info4 = "tbdbrbd" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 3, Info1 ="urkk", Info2 = "caaevabr", Info3 = "effsefs", Info4 = "efeadwdsf" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 4, Info1 ="vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 5, Info1 ="vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 6, Info1 ="vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 7, Info1 ="vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 8, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 9, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 10, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 11, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 12, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooksItems.Add(new lsAllBooksItem { Info0 = 13, Info1 = "vssegr", Info2 = "SGgrg", Info3 = "rjtr", Info4 = "awdawa" });
-            lsAllBooks.ItemsSource = lsAllBooksItems;
-            lsAvailableBooks.ItemsSource = lsAllBooksItems;
-            lsAllMembers.ItemsSource = lsAllBooksItems;
+            lsAllMembers.ItemsSource = getAllMembersFromDB();
         }
 
         private void rbBooks_Checked(object sender, RoutedEventArgs e)
         {
-            if (tabEmployees!=null)
+            if (tabEmployees != null)
             {
                 tabEmployees.SelectedIndex = 0;
             }
@@ -68,8 +52,38 @@ namespace LibraryManagement
         {
 
         }
+
+        public List<lsAllMembersItem> getAllMembersFromDB()
+        {
+            List<lsAllMembersItem> members = new List<lsAllMembersItem>();
+            try
+            {
+                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                con.Open();
+                string qry = "select * from tblMembers";
+                SqlCommand command = new SqlCommand(qry, con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    members.Add(new lsAllMembersItem
+                    {
+                        Info0 = (int)reader["id"],
+                        Info1 = (string)reader["name"],
+                        Info2 = (string)reader["password"],
+                        Info3 = (string)reader["email"],
+                        Info4 = (string)reader["phoneNumber"],
+                    });
+                }
+                con.Close();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message);
+            }
+            return members;
+        }
     }
-    public class lsAllBooksItem
+    public class lsAllMembersItem
     {
         public int Info0 { get; set; }
         public string Info1 { get; set; }
