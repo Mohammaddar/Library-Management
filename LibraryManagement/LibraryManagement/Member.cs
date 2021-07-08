@@ -16,9 +16,10 @@ namespace LibraryManagement
         public string membershipDate;
         public string lastPaymentDate;
         public string balance;
+        public int spareDays;
 
         public Member(string name, string password, string email, string phoneNumber,
-                      byte[] picture, string membershipDate, string lastPaymentDate, string balance)
+                      byte[] picture, string membershipDate, string lastPaymentDate, string balance,int spareDays)
         {
             this.name = name;
             this.password = password;
@@ -28,6 +29,7 @@ namespace LibraryManagement
             this.membershipDate = membershipDate;
             this.lastPaymentDate = lastPaymentDate;
             this.balance = balance;
+            this.spareDays = spareDays;
         }
     }
 }

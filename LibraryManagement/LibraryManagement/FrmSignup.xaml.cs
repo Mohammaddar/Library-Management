@@ -36,7 +36,8 @@ namespace LibraryManagement
             PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
             TextBox tbEmail = (TextBox)edtEmail.Template.FindName("edt", edtEmail);
             TextBox tbPhoneNum = (TextBox)edtPhoneNum.Template.FindName("edt", edtPhoneNum);
-            Member member = new Member(tbUserName.Text, tbPassword.Password, tbEmail.Text, tbPhoneNum.Text, imageBytes, "2021/07/06", "2021/07/06", "0");
+            string today = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
+            Member member = new Member(tbUserName.Text, tbPassword.Password, tbEmail.Text, tbPhoneNum.Text, imageBytes, today, today, "0",0);
             AddMemberToDB(member);
         }
 
@@ -48,15 +49,17 @@ namespace LibraryManagement
         public void AddMemberToDB(Member member)
         {
             string qry;
-            if (imageBytes!=null)
+            if (imageBytes != null)
             {
-                qry = "insert into tblMembers(name,password,email,phoneNumber,picture,membershipDate,lastPayDate,balance) " +
-                    "values(@name,@pass,@email,@phone,@pic,@memDate,@lastPayDate,@balance)";
+                qry = "insert into tblMembers(name,password,email,phoneNumber,picture,membershipDate,lastPayDate,balance,spareDays) " +
+                    "values(@name,@pass,@email,@phone,@pic,@memDate,@lastPayDate,@balance,@spareDays)";
+                
             }
             else
             {
-                qry = "insert into tblMembers(name,password,email,phoneNumber,membershipDate,lastPayDate,balance) " +
-                    "values(@name,@pass,@email,@phone,@memDate,@lastPayDate,@balance)";
+                qry = "insert into tblMembers(name,password,email,phoneNumber,membershipDate,lastPayDate,balance,spareDays) " +
+                    "values(@name,@pass,@email,@phone,@memDate,@lastPayDate,@balance,@spareDays)";
+               
             }
             try
             {
@@ -70,6 +73,7 @@ namespace LibraryManagement
                 command.Parameters.Add(new SqlParameter("@memDate", member.membershipDate));
                 command.Parameters.Add(new SqlParameter("@lastPayDate", member.lastPaymentDate));
                 command.Parameters.Add(new SqlParameter("@balance", member.balance));
+                command.Parameters.Add(new SqlParameter("@spareDays", member.spareDays));
                 if (imageBytes != null)
                 {
                     command.Parameters.Add(new SqlParameter("@pic", imageBytes));
@@ -85,11 +89,12 @@ namespace LibraryManagement
                     if (er.ToString().Contains("IX_MemName"))
                     {
                         MessageBox.Show("This User Name has been taken");
-                    }else if (er.ToString().Contains("IX_MemEmail"))
+                    }
+                    else if (er.ToString().Contains("IX_MemEmail"))
                     {
                         MessageBox.Show("There is already an account with this email");
                     }
-                    else if(er.ToString().Contains("IX_MemPhone"))
+                    else if (er.ToString().Contains("IX_MemPhone"))
                     {
                         MessageBox.Show("There is already an account with this phone number");
                     }
@@ -123,6 +128,16 @@ namespace LibraryManagement
                 return null;
             }
         }
+
+        private void edt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender.GetHashCode()==((TextBox)edtPhoneNum.Template.FindName("edt", edtPhoneNum)).GetHashCode())
+            {
+                TextBox tbPhoneNum = (TextBox)edtPhoneNum.Template.FindName("edt", edtPhoneNum);
+                tbPhoneNum.Text = new string(tbPhoneNum.Text.Where(c => char.IsDigit(c)).ToArray());
+            }
+        }
+
 
     }
 
