@@ -1,297 +1,296 @@
-﻿<Window x:Class="LibraryManagement.FrmMembers"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LibraryManagement"
-        mc:Ignorable="d"
-        Title="FrmMembers"
-        Height="570"
-        Width="920"
-        Background="#F6F5F5">
+﻿<Window
+    x:Class="LibraryManagement.FrmMembers"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LibraryManagement"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="frm"
+    Title="FrmMembers"
+    Width="920"
+    Height="570"
+    Background="#F6F5F5"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Window.Resources>
         <ControlTemplate x:Key="tmpTabItem" TargetType="RadioButton">
-            <Border x:Name="borderTabItem"
-                    Background="Transparent">
-                <Label Name="lblTabItem"
+            <Border x:Name="borderTabItem" Background="Transparent">
+                <Label
+                    Name="lblTabItem"
+                    Margin="50,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
                     Content="{TemplateBinding Content}"
-                       Foreground="#145374"
-                       FontSize="{TemplateBinding FontSize}"
-                   Background="Transparent"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       FontWeight="Bold"
-                       FontFamily="Fonts/#Titillium Web"
-                         Margin="50,0,0,0"/>
+                    FontFamily="Fonts/#Titillium Web"
+                    FontSize="{TemplateBinding FontSize}"
+                    FontWeight="Bold"
+                    Foreground="#145374" />
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter TargetName="borderTabItem"
-                            Property="Background"
-                            Value="#FFEAF1F6"/>
+                    <Setter TargetName="borderTabItem" Property="Background" Value="#FFEAF1F6" />
                 </Trigger>
                 <Trigger Property="IsChecked" Value="true">
-                    <Setter TargetName="borderTabItem"
-                            Property="Background"
-                            Value="#D3E0EA"/>
+                    <Setter TargetName="borderTabItem" Property="Background" Value="#D3E0EA" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpTabItem2" TargetType="TabItem">
-            <Grid x:Name="gridTabItem2"
-                  Width="{TemplateBinding Width}" 
-                  Height="{TemplateBinding Height}">
-                <Border x:Name="borderTabItem2"
-                        Background="Transparent"
-                        BorderBrush="#022E57"
-                        BorderThickness="0,0,0,0"/>
-                <Label x:Name="lblTabItem2"
-                       HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"
-                       BorderThickness="0"
-                       VerticalContentAlignment="Center"
-                       Background="Transparent"
-                       Content="{TemplateBinding Header}"
-                       HorizontalContentAlignment="Center"
-                       FontFamily="Fonts/#Titillium Web"
-                       Foreground="#022E57"
-                       FontSize="13"/>
+            <Grid
+                x:Name="gridTabItem2"
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="borderTabItem2"
+                    Background="Transparent"
+                    BorderBrush="#022E57"
+                    BorderThickness="0,0,0,0" />
+                <Label
+                    x:Name="lblTabItem2"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Content="{TemplateBinding Header}"
+                    FontFamily="Fonts/#Titillium Web"
+                    FontSize="13"
+                    Foreground="#022E57" />
             </Grid>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver"
-                         Value="true" 
-                         SourceName="gridTabItem2">
-                    <Setter Property="Background"
-                            TargetName="borderTabItem2"
-                            Value="#D3E0EA"/>
+                <Trigger SourceName="gridTabItem2" Property="IsMouseOver" Value="true">
+                    <Setter TargetName="borderTabItem2" Property="Background" Value="#D3E0EA" />
                 </Trigger>
-                <Trigger Property="IsSelected"
-                         Value="true">
-                    <Setter Property="BorderThickness"
-                            TargetName="borderTabItem2"
-                            Value="0,0,0,1"/>
-                    <Setter Property="FontWeight"
-                            TargetName="lblTabItem2"
-                            Value="SemiBold"/>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter TargetName="borderTabItem2" Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter TargetName="lblTabItem2" Property="FontWeight" Value="SemiBold" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListBooksItem" TargetType="ListBoxItem">
-            <Border x:Name="borderListItem"
-                    BorderBrush="#66768BA3"
-                    BorderThickness="0,0.4,0,0">
-                <StackPanel Orientation="Horizontal"
-                            Margin="16,0,0,0">
-                    <Label Name="txtBookNumber"
-                                               Width="40"
-                                               Height="45"
-                                               Content="{Binding Info0}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                           Foreground="#11698E"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtAllBooksName"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info1}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtAllBooksWriter"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info2}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtAllBooksGenre"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info3}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtAllBooksPublisher"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info4}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Button Name="btnBorrow"
-                            Height="45"
-                            Width="50"
-                            Content="Borrow"
-                            FontFamily="Fonts/#Titillium Web"
-                            Foreground="#022E57"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontSize="12"
-                            Click="btnListMembersItemMore_Click"/>
+            <Border
+                x:Name="borderListItem"
+                BorderBrush="#66768BA3"
+                BorderThickness="0,0.4,0,0">
+                <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
+                    <Label
+                        Name="txtBookNumber"
+                        Width="40"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info0}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#11698E" />
+                    <Label
+                        Name="txtAllBooksName"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info1}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtAllBooksWriter"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info2}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtAllBooksGenre"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info3}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtAllBooksPublisher"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info4}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Button
+                        Name="btnBorrow"
+                        Width="50"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="btnBorrow_Click"
+                        Content="Borrow"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="12"
+                        Foreground="#022E57" />
                 </StackPanel>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsSelected"
-                         Value="true">
-                    <Setter Property="Background"
-                            TargetName="borderListItem"
-                            Value="#D3E0EA"/>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter TargetName="borderListItem" Property="Background" Value="#D3E0EA" />
                 </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Background"
-                            TargetName="borderListItem"
-                            Value="#FFEAF1F6"/>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="borderListItem" Property="Background" Value="#FFEAF1F6" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListMyBooksItem" TargetType="ListBoxItem">
-            <Border x:Name="borderListItem"
-                    BorderBrush="#66768BA3"
-                    BorderThickness="0,0.4,0,0">
-                <StackPanel Orientation="Horizontal"
-                            Margin="16,0,0,0">
-                    <Label Name="txtBookNumber"
-                                               Width="40"
-                                               Height="45"
-                                               Content="{Binding Info0}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                           Foreground="#11698E"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtBorrowedBooksName"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info1}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtBorrowedBooksWriter"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info2}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtBorrowedBooksBorrowDate"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info3}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Label Name="txtBorrowedBooksReturnDate"
-                                               Width="100"
-                                               Height="45"
-                                               Content="{Binding Info4}" 
-                                               FontSize="13"
-                                               FontFamily="Fonts/#Titillium Web"
-                                               Foreground="#495464"
-                                               Margin="10,0,0,0"
-                                               VerticalContentAlignment="Center"
-                                               HorizontalContentAlignment="Left"/>
-                    <Button Name="btnReturn"
-                            Height="45"
-                            Width="50"
-                            Content="Return"
-                            FontFamily="Fonts/#Titillium Web"
-                            Foreground="#022E57"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontSize="12"
-                            Click="btnListMembersItemMore_Click"/>
+            <Border
+                x:Name="borderListItem"
+                BorderBrush="#66768BA3"
+                BorderThickness="0,0.4,0,0">
+                <StackPanel Margin="16,0,0,0" Orientation="Horizontal">
+                    <Label
+                        Name="txtBookNumber"
+                        Width="40"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info0}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#11698E" />
+                    <Label
+                        Name="txtBorrowedBooksName"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info1}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtBorrowedBooksWriter"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info2}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtBorrowedBooksBorrowDate"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info3}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Label
+                        Name="txtBorrowedBooksReturnDate"
+                        Width="100"
+                        Height="45"
+                        Margin="10,0,0,0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding Info4}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="13"
+                        Foreground="#495464" />
+                    <Button
+                        Name="btnReturn"
+                        Width="50"
+                        Height="45"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="btnReturn_Click"
+                        Content="Return"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="12"
+                        Foreground="#022E57" />
                 </StackPanel>
             </Border>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsSelected"
-                         Value="true">
-                    <Setter Property="Background"
-                            TargetName="borderListItem"
-                            Value="#D3E0EA"/>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter TargetName="borderListItem" Property="Background" Value="#D3E0EA" />
                 </Trigger>
-                <Trigger Property="IsMouseOver"
-                         Value="true">
-                    <Setter Property="Background"
-                            TargetName="borderListItem"
-                            Value="#FFEAF1F6"/>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="borderListItem" Property="Background" Value="#FFEAF1F6" />
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListBoxBooks" TargetType="ListBox">
-            <Border BorderThickness="0,0,0,0"
-                    BorderBrush="#7F4F5688"
-                    Background="Transparent"
-                    Margin="6,-2.5,6,0">
-                <StackPanel Orientation="Vertical"
-                            Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="16,6,0,5">
-                        <Label Content="#"
-                               Width="40"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Name"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Writer"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Genre"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Publisher"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
+            <Border
+                Margin="6,-2.5,6,0"
+                Background="Transparent"
+                BorderBrush="#7F4F5688"
+                BorderThickness="0,0,0,0">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <StackPanel Margin="16,6,0,5" Orientation="Horizontal">
+                        <Label
+                            Width="40"
+                            Margin="10,0,0,0"
+                            Content="#"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Writer"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Genre"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Publisher"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
                         <ListBoxItem />
                     </StackPanel>
-                    <ListBox Margin="0,0,0,0"
-                             Height="318"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             ItemsSource="{TemplateBinding ItemsSource}"
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox
+                        x:Name="lsAllBooks"
+                        Height="318"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{TemplateBinding ItemsSource}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
-                                <Setter Property="Template" Value="{StaticResource tmpListBooksItem}"/>
+                                <Setter Property="Template" Value="{StaticResource tmpListBooksItem}" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                     </ListBox>
@@ -299,578 +298,866 @@
             </Border>
         </ControlTemplate>
         <ControlTemplate x:Key="tmpListBoxMyBooks" TargetType="ListBox">
-            <Border BorderThickness="0,0,0,0"
-                    BorderBrush="#7F4F5688"
-                    Background="Transparent"
-                    Margin="6,-2.5,6,0">
-                <StackPanel Orientation="Vertical"
-                            Margin="0,0,0,0">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="16,12,0,5">
-                        <Label Content="#"
-                               Width="40"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Name"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Writer"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Borrow Date"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
-                        <Label Content="Return Date"
-                               Width="100"
-                               FontSize="14"
-                               FontFamily="Fonts/#Titillium Web"
-                               Margin="10,0,0,0"
-                               Foreground="#005A8D"/>
+            <Border
+                Margin="6,-2.5,6,0"
+                Background="Transparent"
+                BorderBrush="#7F4F5688"
+                BorderThickness="0,0,0,0">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <StackPanel Margin="16,6,0,5" Orientation="Horizontal">
+                        <Label
+                            Width="40"
+                            Margin="10,0,0,0"
+                            Content="#"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Writer"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Borrow Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Return Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
                         <ListBoxItem />
                     </StackPanel>
-                    <ListBox Margin="0,0,0,0"
-                             Height="318"
-                             BorderThickness="0"
-                             Background="Transparent"
-                             ItemsSource="{TemplateBinding ItemsSource}"
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ListBox
+                        x:Name="lsMyBooks"
+                        Height="318"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{TemplateBinding ItemsSource}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
-                                <Setter Property="Template" Value="{StaticResource tmpListMyBooksItem}"/>
+                                <Setter Property="Template" Value="{StaticResource tmpListMyBooksItem}" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                     </ListBox>
                 </StackPanel>
             </Border>
         </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
+            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#FFE4E3E5"
+                    BorderThickness="0.4"
+                    CornerRadius="14" />
+                <TextBox
+                    x:Name="edt"
+                    Margin="12,6,12,6"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    MaxLength="{TemplateBinding MaxLength}"
+                    TextChanged="edt_TextChanged" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpEditableRoundedTextBox" TargetType="TextBox">
+            <Border
+                x:Name="txtBoxBorder"
+                Background="#FFF5FD"
+                BorderBrush="#4CCBCDEE"
+                BorderThickness="0.3"
+                CornerRadius="14">
+                <Grid
+                    x:Name="pnlEditableRoundedTextBox"
+                    Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4.5*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="edtEditableRoundedTextBox"
+                        Grid.Column="0"
+                        Margin="12,6,0,6"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        IsEnabled="False"
+                        Text="{TemplateBinding Text}"
+                        TextChanged="edtEditableRoundedTextBox_TextChanged" />
+                    <Button
+                        x:Name="imgEdit"
+                        Grid.Column="1"
+                        Width="30"
+                        Height="30"
+                        Margin="0,0,6,0"
+                        BorderThickness="0"
+                        Template="{StaticResource tmpEditButton}" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="true" />
+                        <Condition SourceName="edtEditableRoundedTextBox" Property="IsEnabled" Value="true" />
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFF3EFF7" />
+                </MultiTrigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="imgEdit">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <BooleanAnimationUsingKeyFrames Storyboard.TargetName="edtEditableRoundedTextBox" Storyboard.TargetProperty="(TextBox.IsEnabled)">
+                                <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
+                            </BooleanAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedImage" TargetType="Button">
+            <Border
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="90">
+                <Canvas Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <Image
+                        x:Name="imgProfile"
+                        Width="136"
+                        Height="136"
+                        Source="Images/profile.png"
+                        Stretch="Fill">
+                        <Image.Clip>
+                            <RectangleGeometry
+                                RadiusX="90"
+                                RadiusY="90"
+                                Rect="0,0,136,136" />
+                        </Image.Clip>
+                    </Image>
+                    <Button
+                        x:Name="btnSetPic"
+                        Canvas.Left="23"
+                        Canvas.Top="53"
+                        Width="90"
+                        Height="35"
+                        Background="#FFFFF5FD"
+                        Click="btnSetPic_Click"
+                        Content="Change"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="10"
+                        Foreground="Black"
+                        Opacity="0.8"
+                        Template="{DynamicResource tmpRoundedButton}"
+                        Visibility="Hidden" />
+                </Canvas>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="btnSetPic" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="imgProfile" Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpSearchableRoundedTextBox" TargetType="TextBox">
+            <Border
+                x:Name="txtBoxBorder"
+                Background="#FFF5FD"
+                BorderBrush="#4CCBCDEE"
+                BorderThickness="0.3"
+                CornerRadius="14">
+                <Grid
+                    x:Name="pnlSearchableRoundedTextBox"
+                    Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="edtSearchableRoundedTextBox"
+                        Grid.Column="0"
+                        Margin="12,6,0,6"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Text="{TemplateBinding Text}" />
+                    <Button
+                        x:Name="imgSearch"
+                        Grid.Column="1"
+                        Width="30"
+                        Height="30"
+                        Margin="0,0,6,0"
+                        BorderThickness="0"
+                        Click="imgSearch_Click"
+                        Template="{StaticResource tmpSearchButton}" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFF3EFF7" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.2*"/>
-            <ColumnDefinition Width="0.05*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="2.2*" />
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="#4C116790"
-                BorderThickness="0">
+        <Border BorderBrush="#4C116790" BorderThickness="0">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                    <GradientStop Color="White" Offset="0.5"/>
-                    <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                    <GradientStop Offset="0.5" Color="White" />
+                    <GradientStop Offset="1" Color="#FFF1F5FD" />
                 </LinearGradientBrush>
             </Border.Background>
             <Border.Effect>
-                <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                <DropShadowEffect
+                    BlurRadius="12"
+                    Direction="310"
+                    Opacity="20"
+                    Color="#4CECECF0" />
             </Border.Effect>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1.4*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="0.5*"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1.4*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="2*" />
                 </Grid.RowDefinitions>
                 <Grid.Clip>
-                    <RectangleGeometry Rect="0,0,216,545"/>
+                    <RectangleGeometry Rect="0,0,216,545" />
                 </Grid.Clip>
-                <Label Grid.Row="0"
-                       Content="Members &#x0a;Panel"
-                       Foreground="#053742"
-                       FontSize="21"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left"
-                       Margin="20,30,0,0"
-                       FontWeight="Bold"
-                       FontFamily="Fonts/#Arvo"/>
-                <RadioButton x:Name="rbBooks"
-                         Grid.Row="1"
-                         Template="{StaticResource tmpTabItem}"
-                         Content="Books"
-                         FontSize="18"
-                         IsChecked="True"
-                             Checked="rbAllBooks_Checked"/>
-                <RadioButton x:Name="rbMyBooks"
-                         Grid.Row="2"
-                         Template="{StaticResource tmpTabItem}"
-                         Content="My Books"
-                         FontSize="18"
-                             Checked="rbMyBooks_Checked"/>
-                <RadioButton x:Name="rbMembership"
-                         Grid.Row="3"
-                         Template="{StaticResource tmpTabItem}"
-                         Content="Membership"
-                         FontSize="18" Checked="rbMembership_Checked"/>
-                <RadioButton x:Name="rbWallet"
-                         Grid.Row="4"
-                         Template="{StaticResource tmpTabItem}"
-                         Content="Wallet"
-                         FontSize="18"
-                             Checked="rbWallet_Checked"/>
-                <RadioButton x:Name="rbInfo"
-                         Grid.Row="5"
-                         Template="{StaticResource tmpTabItem}"
-                         Content="Info"
-                         FontSize="18"
-                             Checked="rbInfo_Checked"/>
+                <Label
+                    Grid.Row="0"
+                    Margin="20,30,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Members &#x0a;Panel"
+                    FontFamily="Fonts/#Arvo"
+                    FontSize="21"
+                    FontWeight="Bold"
+                    Foreground="#053742" />
+                <RadioButton
+                    x:Name="rbBooks"
+                    Grid.Row="1"
+                    Checked="rbAllBooks_Checked"
+                    Content="Books"
+                    FontSize="18"
+                    IsChecked="True"
+                    Template="{StaticResource tmpTabItem}" />
+                <RadioButton
+                    x:Name="rbMyBooks"
+                    Grid.Row="2"
+                    Checked="rbMyBooks_Checked"
+                    Content="My Books"
+                    FontSize="18"
+                    Template="{StaticResource tmpTabItem}" />
+                <RadioButton
+                    x:Name="rbMembership"
+                    Grid.Row="3"
+                    Checked="rbMembership_Checked"
+                    Content="Membership"
+                    FontSize="18"
+                    Template="{StaticResource tmpTabItem}" />
+                <RadioButton
+                    x:Name="rbWallet"
+                    Grid.Row="4"
+                    Checked="rbWallet_Checked"
+                    Content="Wallet"
+                    FontSize="18"
+                    Template="{StaticResource tmpTabItem}" />
+                <RadioButton
+                    x:Name="rbInfo"
+                    Grid.Row="5"
+                    Checked="rbInfo_Checked"
+                    Content="Info"
+                    FontSize="18"
+                    Template="{StaticResource tmpTabItem}" />
                 <Rectangle
-                           Fill="#47597E"
-                           Grid.Row="6" RenderTransformOrigin="0.5,0.5" Margin="61,116.2,-32.4,-36.2">
+                    Grid.Row="6"
+                    Margin="61,116.2,-32.4,-36.2"
+                    Fill="#47597E"
+                    RenderTransformOrigin="0.5,0.5">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-20"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="-20" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </Rectangle.RenderTransform>
                 </Rectangle>
                 <Rectangle
-                           Fill="#293B5F"
-                           Grid.Row="6" Margin="-47,138.2,100.6,-20.2" RenderTransformOrigin="0.5,0.5">
+                    Grid.Row="6"
+                    Margin="-47,138.2,100.6,-20.2"
+                    Fill="#293B5F"
+                    RenderTransformOrigin="0.5,0.5">
                     <Rectangle.RenderTransform>
                         <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="20"/>
-                            <TranslateTransform/>
+                            <ScaleTransform />
+                            <SkewTransform />
+                            <RotateTransform Angle="20" />
+                            <TranslateTransform />
                         </TransformGroup>
                     </Rectangle.RenderTransform>
                 </Rectangle>
             </Grid>
         </Border>
 
-        <Border Background="Transparent" 
-                BorderBrush="#4C005A8D" 
-                BorderThickness="0"
-                ClipToBounds="True"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Stretch"
-                CornerRadius="90"
-                Width="0"
-                Grid.Column="1"
-                Margin="0,90,0,30">
-            <Border Background="Transparent" BorderBrush="#4C005A8D" 
-                    BorderThickness="10,0,0,0" Margin="-11,0,0,0">
+        <Border
+            Grid.Column="1"
+            Width="0"
+            Margin="0,90,0,30"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Stretch"
+            Background="Transparent"
+            BorderBrush="#4C005A8D"
+            BorderThickness="0"
+            ClipToBounds="True"
+            CornerRadius="90">
+            <Border
+                Margin="-11,0,0,0"
+                Background="Transparent"
+                BorderBrush="#4C005A8D"
+                BorderThickness="10,0,0,0">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="0" BlurRadius="9"/>
+                    <DropShadowEffect BlurRadius="9" ShadowDepth="0" />
                 </Border.Effect>
             </Border>
         </Border>
 
-        <StackPanel Orientation="Vertical"
-                    Grid.Column="2">
+        <StackPanel Grid.Column="2" Orientation="Vertical">
             <DockPanel LastChildFill="False">
-                <Border CornerRadius="12"
-                        x:Name="boxSearch"
-                        Width="330"
-                        Height="50"
-                        BorderBrush="#4C005A8D"
-                        BorderThickness="0.2"
-                        Padding="6,3,6,3"
-                        Margin="50,30,44,30"
-                        DockPanel.Dock="Left">
+                <Border
+                    x:Name="boxSearch"
+                    Width="330"
+                    Height="50"
+                    Margin="50,30,44,30"
+                    Padding="6,3,6,3"
+                    BorderBrush="#4C005A8D"
+                    BorderThickness="0.2"
+                    CornerRadius="12"
+                    DockPanel.Dock="Left">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="White" Offset="0.9"/>
-                            <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                            <GradientStop Offset="0.9" Color="White" />
+                            <GradientStop Offset="1" Color="#FFF1F5FD" />
                         </LinearGradientBrush>
                     </Border.Background>
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="6" 
-                                      Color="#4CECECF0" 
-                                      Opacity="20" 
-                                      Direction="310" />
+                        <DropShadowEffect
+                            BlurRadius="6"
+                            Direction="310"
+                            Opacity="20"
+                            Color="#4CECECF0" />
                     </Border.Effect>
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center">
-                        <TextBox Name="edtSearch"
-                                 Width="180"
-                                 Height="40"
-                                 Text="Search..."
-                                 VerticalAlignment="Stretch"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalContentAlignment="Center"
-                                 Template="{DynamicResource tmpSearchableRoundedTextBox}"
-                                 FontFamily="Fonts/#Titillium Web"/>
-                        <CheckBox x:Name="cmbBookName"
-                                  VerticalAlignment="Center"
-                                  Content="Name"
-                                  Margin="10,0,0,0"
-                                  Foreground="#145374"/>
-                        <CheckBox x:Name="cmbBookWriter"
-                                  VerticalAlignment="Center"
-                                  Content="Writer"
-                                  Margin="10,0,0,0"
-                                  Foreground="#145374"/>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBox
+                            Name="edtSearch"
+                            Width="180"
+                            Height="40"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            FontFamily="Fonts/#Titillium Web"
+                            Template="{DynamicResource tmpSearchableRoundedTextBox}" />
+                        <CheckBox
+                            x:Name="cbBookName"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Content="Name"
+                            Foreground="#145374" />
+                        <CheckBox
+                            x:Name="cbBookWriter"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Content="Writer"
+                            Foreground="#145374" />
                     </StackPanel>
                 </Border>
-                <Border CornerRadius="12"
-                        Width="160"
-                        Height="50"
-                        BorderBrush="#4C005A8D"
-                        BorderThickness="0.2"
-                        Margin="0,30,44,30"
-                        Padding="6,3,6,3"
-                        DockPanel.Dock="Right">
+                <Border
+                    Width="160"
+                    Height="50"
+                    Margin="0,30,44,30"
+                    Padding="6,3,6,3"
+                    BorderBrush="#4C005A8D"
+                    BorderThickness="0.2"
+                    CornerRadius="12"
+                    DockPanel.Dock="Right">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="White" Offset="0.5"/>
-                            <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                            <GradientStop Offset="0.5" Color="White" />
+                            <GradientStop Offset="1" Color="#FFF1F5FD" />
                         </LinearGradientBrush>
                     </Border.Background>
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="6" 
-                                      Color="#4CECECF0" 
-                                      Opacity="20" 
-                                      Direction="310" />
+                        <DropShadowEffect
+                            BlurRadius="6"
+                            Direction="310"
+                            Opacity="20"
+                            Color="#4CECECF0" />
                     </Border.Effect>
-                    <StackPanel Orientation="Horizontal"
+                    <StackPanel
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
-                        <Label Name="lblMemberName"
-                       Content="Marvin Robson"
-                       FontSize="14"
-                       FontFamily="Fonts/#Titillium Web"
-                       VerticalContentAlignment="Center"/>
-                        <Image Source="Images/profile_mini.png"
-                       Width="40"
-                       Height="40"/>
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Label
+                            Name="lblMemberName"
+                            VerticalContentAlignment="Center"
+                            Content="Marvin Robson"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14" />
+                        <Image
+                            Width="40"
+                            Height="40"
+                            Source="Images/profile_mini.png" />
                     </StackPanel>
                 </Border>
             </DockPanel>
 
-            <TabControl Name="tabMembers"
-                        BorderThickness="0"
-                        Margin="10,-15,10,10"
-                        Background="Transparent">
-                <TabItem x:Name="tabItemBooks"
-                     Visibility="Collapsed">
-                    <Border CornerRadius="12"
-                            BorderBrush="#4C116790"
-                            BorderThickness="0.2"
-                            Padding="10"
-                            Margin="40,20,30,30">
+            <TabControl
+                Name="tabMembers"
+                Margin="10,-15,10,10"
+                Background="Transparent"
+                BorderThickness="0">
+                <TabItem x:Name="tabItemBooks" Visibility="Collapsed">
+                    <Border
+                        Margin="40,20,30,30"
+                        Padding="10"
+                        BorderBrush="#4C116790"
+                        BorderThickness="0.2"
+                        CornerRadius="12">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="White" Offset="0.5"/>
-                                <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                <GradientStop Offset="0.5" Color="White" />
+                                <GradientStop Offset="1" Color="#FFF1F5FD" />
                             </LinearGradientBrush>
                         </Border.Background>
                         <Border.Effect>
-                            <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                            <DropShadowEffect
+                                BlurRadius="12"
+                                Direction="310"
+                                Opacity="20"
+                                Color="#4CECECF0" />
                         </Border.Effect>
-                        <ListBox Name="lsAllBooks"
-                                     BorderThickness="0"
-                                     Margin="-5.9,0,0,0"
-                                     Template="{StaticResource tmpListBoxBooks}"
-                                     HorizontalContentAlignment="Stretch"/>
+                        <ListBox
+                            Name="lsAllBooks"
+                            Margin="-5.9,0,0,0"
+                            HorizontalContentAlignment="Stretch"
+                            BorderThickness="0"
+                            Template="{StaticResource tmpListBoxBooks}" />
                     </Border>
                 </TabItem>
-                <TabItem x:Name="tabItemMyBooks"
-                     Visibility="Collapsed">
-                    <Border CornerRadius="12"
-                            BorderBrush="#4C116790"
-                            BorderThickness="0.2"
-                            Padding="10"
-                            Margin="40,20,30,30">
+                <TabItem x:Name="tabItemMyBooks" Visibility="Collapsed">
+                    <Border
+                        Margin="40,20,30,30"
+                        Padding="10"
+                        BorderBrush="#4C116790"
+                        BorderThickness="0.2"
+                        CornerRadius="12">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="White" Offset="0.5"/>
-                                <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                <GradientStop Offset="0.5" Color="White" />
+                                <GradientStop Offset="1" Color="#FFF1F5FD" />
                             </LinearGradientBrush>
                         </Border.Background>
                         <Border.Effect>
-                            <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                            <DropShadowEffect
+                                BlurRadius="12"
+                                Direction="310"
+                                Opacity="20"
+                                Color="#4CECECF0" />
                         </Border.Effect>
-                        <ListBox Name="lsMyBooks"
-                                 BorderThickness="0"
-                                 Margin="-5.9,0,0,0"
-                                 Template="{StaticResource tmpListBoxMyBooks}"
-                                 HorizontalContentAlignment="Stretch"/>
+                        <ListBox
+                            Name="lsMyBooks"
+                            Margin="-5.9,0,0,0"
+                            HorizontalContentAlignment="Stretch"
+                            BorderThickness="0"
+                            Template="{StaticResource tmpListBoxMyBooks}" />
                     </Border>
                 </TabItem>
-                <TabItem x:Name="tabItemMembership"
-                         Visibility="Collapsed">
+                <TabItem x:Name="tabItemMembership" Visibility="Collapsed">
                     <StackPanel>
-                        <Border CornerRadius="12"
+                        <Border
                             Height="200"
+                            Margin="40,20,30,20"
                             BorderBrush="#4C116790"
                             BorderThickness="0.2"
-                            Margin="40,20,30,30">
+                            CornerRadius="12">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                    <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                    <GradientStop Offset="0.5" Color="White" />
+                                    <GradientStop Offset="1" Color="#FFF1F5FD" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                                <DropShadowEffect
+                                    BlurRadius="12"
+                                    Direction="310"
+                                    Opacity="20"
+                                    Color="#4CECECF0" />
                             </Border.Effect>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="Remaining Days :"
-                               FontSize="24"
-                               FontFamily="Fonts/#Titillium Web"
-                               FontWeight="Bold"
-                               Foreground="#11698E"
-                               Margin="40,40,0,0"/>
-                                <Label Name="lblMembershipDays"
-                               Content="23"
-                               FontSize="20"
-                               FontFamily="Fonts/#Titillium Web"
-                               Foreground="#11698E"
-                               Margin="40,0,0,0"/>
-                                <Image Width="200"
-                                   Height="200"
-                                   Source="Images/wallet.png"
-                                   Margin="400,-120,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Label
+                                    Margin="40,40,0,0"
+                                    Content="Remaining Days :"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="#11698E" />
+                                <Label
+                                    Name="lblMembershipDays"
+                                    Margin="40,0,0,0"
+                                    Content="23"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="20"
+                                    Foreground="#11698E" />
+                                <Image
+                                    Width="200"
+                                    Height="200"
+                                    Margin="400,-120,0,0"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Source="Images/wallet.png">
                                     <Image.RenderTransform>
                                         <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform Angle="-20"/>
-                                            <TranslateTransform/>
+                                            <ScaleTransform />
+                                            <SkewTransform />
+                                            <RotateTransform Angle="-20" />
+                                            <TranslateTransform />
                                         </TransformGroup>
                                     </Image.RenderTransform>
                                 </Image>
                             </StackPanel>
                         </Border>
-                        <Button Name="btnRenewMembership"
-                                Width="180"
-                                Height="50"
-                                Margin="40,0,20,20"
-                                Content="Renew Membership"
-                                Template="{DynamicResource tmpElevatedButton}"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                FontSize="15"/>
+                        <Button
+                            Name="btnRenewMembership"
+                            Width="180"
+                            Height="50"
+                            Margin="40,0,20,20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="btnRenewMembership_Click"
+                            Content="Renew Membership"
+                            FontSize="15"
+                            FontWeight="Bold"
+                            Template="{DynamicResource tmpElevatedButton}" />
                     </StackPanel>
                 </TabItem>
-                <TabItem x:Name="tabItemWallet"
-                         Visibility="Collapsed">
+                <TabItem x:Name="tabItemWallet" Visibility="Collapsed">
                     <StackPanel>
-                        <Border CornerRadius="12"
+                        <Border
                             Height="200"
+                            Margin="40,20,30,20"
                             BorderBrush="#4C116790"
                             BorderThickness="0.2"
-                            Margin="40,20,30,30">
+                            CornerRadius="12">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                    <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                    <GradientStop Offset="0.5" Color="White" />
+                                    <GradientStop Offset="1" Color="#FFF1F5FD" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                                <DropShadowEffect
+                                    BlurRadius="12"
+                                    Direction="310"
+                                    Opacity="20"
+                                    Color="#4CECECF0" />
                             </Border.Effect>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="Your Wallet Balance :"
-                               FontSize="24"
-                               FontFamily="Fonts/#Titillium Web"
-                               FontWeight="Bold"
-                               Foreground="#11698E"
-                               Margin="40,40,0,0"/>
-                                <Label Name="lblMemberBalance"
-                               Content="1560$"
-                               FontSize="20"
-                               FontFamily="Fonts/#Titillium Web"
-                               Foreground="#11698E"
-                               Margin="40,0,0,0"/>
-                                <Image Width="200"
-                                   Height="200"
-                                   Source="Images/wallet.png"
-                                   Margin="400,-120,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Label
+                                    Margin="40,40,0,0"
+                                    Content="Your Wallet Balance :"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="#11698E" />
+                                <Label
+                                    Name="lblMemberBalance"
+                                    Margin="40,0,0,0"
+                                    Content="1560$"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="20"
+                                    Foreground="#11698E" />
+                                <Image
+                                    Width="200"
+                                    Height="200"
+                                    Margin="400,-120,0,0"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Source="Images/wallet.png">
                                     <Image.RenderTransform>
                                         <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform Angle="-20"/>
-                                            <TranslateTransform/>
+                                            <ScaleTransform />
+                                            <SkewTransform />
+                                            <RotateTransform Angle="-20" />
+                                            <TranslateTransform />
                                         </TransformGroup>
                                     </Image.RenderTransform>
                                 </Image>
                             </StackPanel>
                         </Border>
-                        <Button Name="btnIncreaseBalance"
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Row="0"
+                                Width="200"
+                                Height="50"
+                                Margin="40,10,10,30"
+                                Padding="0,3,0,3"
+                                VerticalAlignment="Center"
+                                BorderBrush="#4C005A8D"
+                                BorderThickness="0.2"
+                                CornerRadius="12">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Offset="0.9" Color="White" />
+                                        <GradientStop Offset="1" Color="#FFF1F5FD" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="6"
+                                        Direction="310"
+                                        Opacity="20"
+                                        Color="#4CECECF0" />
+                                </Border.Effect>
+                                <TextBox
+                                    Name="edtIncreaseBalance"
+                                    Width="180"
+                                    Height="40"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    VerticalContentAlignment="Center"
+                                    Background="#FFF5FD"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    Template="{DynamicResource tmpRoundedTextBox}"
+                                    Text="Search..." />
+                            </Border>
+                            <Button
+                                Name="btnIncreaseBalance"
+                                Grid.Column="1"
                                 Width="180"
                                 Height="50"
-                                Margin="40,0,20,20"
+                                Margin="10,-20,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Click="btnIncreaseBalance_Click"
                                 Content="Increase Balance"
-                                Template="{DynamicResource tmpElevatedButton}"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderThickness="0"
+                                FontSize="15"
                                 FontWeight="Bold"
-                                FontSize="15"/>
+                                Template="{DynamicResource tmpElevatedButton}" />
+                        </Grid>
                     </StackPanel>
                 </TabItem>
-                <TabItem x:Name="tabItemInfo"
-                         Visibility="Collapsed">
+                <TabItem x:Name="tabItemInfo" Visibility="Collapsed">
                     <StackPanel Orientation="Vertical">
-                        <Border CornerRadius="12"
+                        <Border
+                            Margin="40,20,30,20"
+                            Padding="10"
                             BorderBrush="#4C116790"
                             BorderThickness="0.2"
-                            Padding="10"
-                            Margin="40,20,30,30">
+                            CornerRadius="12">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                    <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                    <GradientStop Offset="0.5" Color="White" />
+                                    <GradientStop Offset="1" Color="#FFF1F5FD" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                                <DropShadowEffect
+                                    BlurRadius="12"
+                                    Direction="310"
+                                    Opacity="20"
+                                    Color="#4CECECF0" />
                             </Border.Effect>
                             <Grid Margin="0,0,0,15">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="1*" />
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.9*"/>
-                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="0.9*" />
+                                        <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
-                                    <Button Name="btnProfile"
-                                            Grid.Column="0"
-                                            Height="140"
-                                            Width="140"
-                                            Margin="0,20,0,0"
-                                            Template="{StaticResource tmpRoundedImage}">
-                                        <Button Content="Button" 
-                                                Height="100"
-                                                Width="75" />
+                                    <Button
+                                        Name="btnProfile"
+                                        Grid.Column="0"
+                                        Width="140"
+                                        Height="140"
+                                        Margin="0,20,0,0"
+                                        Template="{StaticResource tmpRoundedImage}">
+                                        <Button
+                                            Width="75"
+                                            Height="100"
+                                            Content="Button" />
                                     </Button>
                                     <Grid Grid.Column="2">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.3*"/>
-                                            <RowDefinition Height="1*"/>
-                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="0.3*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
                                         </Grid.RowDefinitions>
-                                        <StackPanel Grid.Row="1"
-                                        Orientation="Vertical">
-                                            <TextBlock Text="User name :"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Background="Transparent"
-                                            Foreground="#145374"
-                                            FontSize="12"
-                                            Margin="70,0,0,2"
-                                            FontFamily="Fonts/#Titillium Web"/>
-                                            <TextBox Name="edtUserName"
-                                                    Width="200"
-                                                    Height="40"
-                                                     Margin="20,0,0,0"
-                                                     Text="Marvin Robson"
-                                         VerticalAlignment="Stretch"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalContentAlignment="Center"
-                                         Template="{DynamicResource tmpEditableRoundedTextBox}"
-                                         FontFamily="Fonts/#Titillium Web"/>
+                                        <StackPanel Grid.Row="1" Orientation="Vertical">
+                                            <TextBlock
+                                                Margin="70,0,0,2"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Background="Transparent"
+                                                FontFamily="Fonts/#Titillium Web"
+                                                FontSize="12"
+                                                Foreground="#145374"
+                                                Text="User name :" />
+                                            <TextBox
+                                                Name="edtUserName"
+                                                Width="200"
+                                                Height="40"
+                                                Margin="20,0,0,0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                VerticalContentAlignment="Center"
+                                                FontFamily="Fonts/#Titillium Web"
+                                                Template="{StaticResource tmpEditableRoundedTextBox}"
+                                                Text="Marvin Robson" />
                                         </StackPanel>
-                                        <StackPanel Grid.Row="2"
-                                        Orientation="Vertical">
-                                            <TextBlock Text="Phone number :"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Background="Transparent"
-                                            Foreground="#145374"
-                                            FontSize="12"
-                                            Margin="70,0,0,2"
-                                            FontFamily="Fonts/#Titillium Web"/>
-                                            <TextBox Name="edtPhoneNumber"
-                                                     Width="200"
-                                                     Height="40"
-                                                     Margin="20,0,0,0"
-                                                     Text="09911557553"
-                                         VerticalAlignment="Stretch"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalContentAlignment="Center"
-                                         Template="{DynamicResource tmpEditableRoundedTextBox}"
-                                         FontFamily="Fonts/#Titillium Web"/>
+                                        <StackPanel Grid.Row="2" Orientation="Vertical">
+                                            <TextBlock
+                                                Margin="70,0,0,2"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Background="Transparent"
+                                                FontFamily="Fonts/#Titillium Web"
+                                                FontSize="12"
+                                                Foreground="#145374"
+                                                Text="Phone number :" />
+                                            <TextBox
+                                                Name="edtPhoneNumber"
+                                                Width="200"
+                                                Height="40"
+                                                Margin="20,0,0,0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                VerticalContentAlignment="Center"
+                                                FontFamily="Fonts/#Titillium Web"
+                                                Template="{StaticResource tmpEditableRoundedTextBox}"
+                                                Text="09911557553" />
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.9*"/>
-                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="0.9*" />
+                                        <ColumnDefinition Width="1*" />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="0"
-                                        Orientation="Vertical"
-                                                Margin="40,0,0,0">
-                                        <TextBlock Text="Email :"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Background="Transparent"
-                                            Foreground="#145374"
-                                            FontSize="12"
+                                    <StackPanel
+                                        Grid.Column="0"
+                                        Margin="40,0,0,0"
+                                        Orientation="Vertical">
+                                        <TextBlock
                                             Margin="0,0,0,2"
-                                            FontFamily="Fonts/#Titillium Web"/>
-                                        <TextBox Name="edtEmail"
-                                                   Text="testemail@gmail.com"
-                                         Width="240"
-                                         Height="40"
-                                         Margin="-20,0,0,0"
-                                         VerticalAlignment="Stretch"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalContentAlignment="Center"
-                                         Template="{DynamicResource tmpEditableRoundedTextBox}"
-                                         FontFamily="Fonts/#Titillium Web"/>
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            FontFamily="Fonts/#Titillium Web"
+                                            FontSize="12"
+                                            Foreground="#145374"
+                                            Text="Email :" />
+                                        <TextBox
+                                            Name="edtEmail"
+                                            Width="240"
+                                            Height="40"
+                                            Margin="-20,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            VerticalContentAlignment="Center"
+                                            FontFamily="Fonts/#Titillium Web"
+                                            Template="{StaticResource tmpEditableRoundedTextBox}"
+                                            Text="testemail@gmail.com" />
                                     </StackPanel>
-                                    <StackPanel Grid.Column="1"
-                                                Orientation="Vertical">
-                                        <TextBlock Text="Password :"
-                                                   VerticalAlignment="Center"
-                                                    HorizontalAlignment="Left"
-                                                    Background="Transparent"
-                                                    Foreground="#145374"
-                                                    FontSize="12"
-                                                    Margin="70,0,0,2"
-                                                    FontFamily="Fonts/#Titillium Web"/>
-                                        <PasswordBox Name="edtPassword"
-                                                     Width="200"
-                                                     Height="40"
-                                                     Margin="20,0,0,0"
-                                                     VerticalAlignment="Stretch"
-                                                     HorizontalAlignment="Stretch"
-                                                     VerticalContentAlignment="Center"
-                                                     Template="{DynamicResource tmpRoundedPassBox}"
-                                                     FontFamily="Fonts/#Titillium Web"
-                                                     Background="#FFEAE9EC"/>
+                                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                                        <TextBlock
+                                            Margin="70,0,0,2"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            FontFamily="Fonts/#Titillium Web"
+                                            FontSize="12"
+                                            Foreground="#145374"
+                                            Text="Password :" />
+                                        <PasswordBox
+                                            Name="edtPassword"
+                                            Width="200"
+                                            Height="40"
+                                            Margin="20,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            VerticalContentAlignment="Center"
+                                            Background="#FFEAE9EC"
+                                            FontFamily="Fonts/#Titillium Web"
+                                            Template="{StaticResource tmpRoundedPassBox}" />
                                     </StackPanel>
                                 </Grid>
                             </Grid>
                         </Border>
-                        <Button Name="btnApplyChanges"
-                                Width="150"
-                                Height="50"
-                                Margin="40,0,20,20"
-                                Content="Apply Changes"
-                                Template="{DynamicResource tmpElevatedButton}"
-                                VerticalAlignment="Stretch"
-                                HorizontalAlignment="Left"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                FontWeight="Bold"
-                                FontSize="15"
-                                />
+                        <Button
+                            Name="btnApplyChanges"
+                            Width="150"
+                            Height="50"
+                            Margin="40,0,20,20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="btnApplyChanges_Click"
+                            Content="Apply Changes"
+                            FontSize="15"
+                            FontWeight="Bold"
+                            Template="{DynamicResource tmpElevatedButton}" />
                     </StackPanel>
                 </TabItem>
             </TabControl>
