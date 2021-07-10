@@ -6,4 +6,9 @@
         xmlns:local="clr-namespace:LibraryManagement"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
+
+    <StackPanel>
+        <Image x:Name="img" HorizontalAlignment="Left" Height="186" Margin="214,108,0,0" VerticalAlignment="Top" Width="195"/>
+        <Button x:Name="btn" Width="222" Height="100" Click="btn_Click"/>
+    </StackPanel>
 </Window>

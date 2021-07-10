@@ -1,88 +1,104 @@
-﻿<Application x:Class="LibraryManagement.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:LibraryManagement"
-             StartupUri="FrmEmployees.xaml">
+﻿<Application
+    x:Class="LibraryManagement.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:LibraryManagement"
+    StartupUri="FrmMembers.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ControlTemplate x:Key="tmpEditButton" TargetType="Button">
-                <Border x:Name="borderEditBtn"
-                        Width="30"
-                        Height="30"
-                        CornerRadius="12">
-                    <Image Width="14"
-                           Source="Images/edit.png"/>
+                <Border
+                    x:Name="borderEditBtn"
+                    Width="30"
+                    Height="30"
+                    CornerRadius="12">
+                    <Image Width="14" Source="Images/edit.png" />
                 </Border>
                 <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver" Value="true" SourceName="borderEditBtn">
-                        <Setter x:Name="ba" TargetName="borderEditBtn" Property="Background" Value="#FFDEEFF9"/>
+                    <Trigger SourceName="borderEditBtn" Property="IsMouseOver" Value="true">
+                        <Setter x:Name="ba" TargetName="borderEditBtn" Property="Background" Value="#FFDAE1F0" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="tmpSearchButton" TargetType="Button">
+                <Border
+                    x:Name="borderSearchBtn"
+                    Width="30"
+                    Height="30"
+                    CornerRadius="12">
+                    <Image Width="14" Source="Images/search.png" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger SourceName="borderSearchBtn" Property="IsMouseOver" Value="true">
+                        <Setter x:Name="ba" TargetName="borderSearchBtn" Property="Background" Value="#FFDAE1F0" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <ControlTemplate x:Key="tmpRoundedButton" TargetType="Button">
-                <Grid>
-                    <Border x:Name="btnBorder"
-                        CornerRadius="20"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"/>
-                    <TextBlock HorizontalAlignment="Center"
-                         VerticalAlignment="Center"
-                         Text="{TemplateBinding Content}"
-                         Background="Transparent"
-                         Foreground="{TemplateBinding Foreground}"
-                         FontWeight="Bold"
-                         FontSize="16"/>
-                </Grid>
+                <Border
+                    x:Name="btnBorder"
+                    Background="{TemplateBinding Background}"
+                    CornerRadius="16">
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Text="{TemplateBinding Content}" />
+                </Border>
                 <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver"
-                         Value="true">
-                        <Setter Property="Background"
-                            TargetName="btnBorder"
-                            Value="#005A8D"/>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter TargetName="btnBorder" Property="Background" Value="#FF33555D" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <ControlTemplate x:Key="tmpRoundedImage" TargetType="Button">
-                <Border BorderThickness="2" 
-                    BorderBrush="Black"
+                <Border
                     Width="{TemplateBinding Width}"
                     Height="{TemplateBinding Height}"
+                    BorderBrush="Black"
+                    BorderThickness="2"
                     CornerRadius="90">
-                    <Canvas Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Height}">
-                        <Image x:Name="imgProfile"
-                           Width="136"
-                           Height="136"
-                           Source="Images/profile.png"
-                           Stretch="Fill">
+                    <Canvas Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                        <Image
+                            x:Name="imgProfile"
+                            Width="136"
+                            Height="136"
+                            Source="Images/profile.png"
+                            Stretch="Fill">
                             <Image.Clip>
-                                <RectangleGeometry RadiusX="90"
-                                               RadiusY="90"
-                                               Rect="0,0,136,136"/>
+                                <RectangleGeometry
+                                    RadiusX="90"
+                                    RadiusY="90"
+                                    Rect="0,0,136,136" />
                             </Image.Clip>
                         </Image>
-                        <Button x:Name="btnSetPic"
-                                Width="90"
-                                Height="35"
-                                Canvas.Left="23"
-                                Canvas.Top="53"
-                                Content="Change"
-                                FontSize="10"
-                                Visibility="Hidden"
-                                Background="#FFFFF5FD"
-                                Foreground="Black"
-                                Opacity="0.8"
-                                FontFamily="Fonts/#Titillium Web"
-                            Template="{DynamicResource tmpRoundedButton}"/>
+                        <Button
+                            x:Name="btnSetPic"
+                            Canvas.Left="23"
+                            Canvas.Top="53"
+                            Width="90"
+                            Height="35"
+                            Background="#FFFFF5FD"
+                            Content="Change"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="10"
+                            Foreground="Black"
+                            Opacity="0.8"
+                            Template="{DynamicResource tmpRoundedButton}"
+                            Visibility="Hidden" />
                     </Canvas>
                 </Border>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter TargetName="btnSetPic" Property="Visibility" Value="Visible"/>
+                        <Setter TargetName="btnSetPic" Property="Visibility" Value="Visible" />
                         <Setter TargetName="imgProfile" Property="Effect">
                             <Setter.Value>
-                                <BlurEffect/>
+                                <BlurEffect />
                             </Setter.Value>
                         </Setter>
                     </Trigger>
@@ -91,145 +107,186 @@
             </ControlTemplate>
             <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
                 <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
-                    <Border x:Name="txtBoxBorder"
-                        CornerRadius="14"
-                        Background="White"
-                        BorderBrush="#4CCBCDEE"
-                        BorderThickness="0.3"/>
-                    <TextBox HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
-                         Margin="12,6,12,6"
-                         Text="{TemplateBinding Text}"
-                         BorderThickness="0"
-                         VerticalContentAlignment="Center"
-                         Background="Transparent"/>
+                    <Border
+                        x:Name="txtBoxBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="#FFE4E3E5"
+                        BorderThickness="0.4"
+                        CornerRadius="14" />
+                    <TextBox
+                        x:Name="edt"
+                        Margin="12,6,12,6"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        MaxLength="{TemplateBinding MaxLength}" />
                 </Grid>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background"
-                            TargetName="txtBoxBorder"
-                            Value="AliceBlue"/>
+                        <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <ControlTemplate x:Key="tmpRoundedPassBox" TargetType="PasswordBox">
                 <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
-                    <Border x:Name="passBoxBorder"
-                        CornerRadius="14"
+                    <Border
+                        x:Name="passBoxBorder"
                         Background="{TemplateBinding Background}"
-                        BorderBrush="#4CCBCDEE"
-                        BorderThickness="0.3"/>
-                    <PasswordBox HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
-                         Margin="12,6,12,6"
-                         BorderThickness="0"
-                         VerticalContentAlignment="Center"
-                         Background="Transparent"/>
+                        BorderBrush="#FFE4E3E5"
+                        BorderThickness="0.4"
+                        CornerRadius="14" />
+                    <PasswordBox
+                        x:Name="edt"
+                        Margin="12,6,12,6"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0" />
                 </Grid>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background"
-                            TargetName="passBoxBorder"
-                            Value="#FFCAD6F0"/>
+                        <Setter TargetName="passBoxBorder" Property="Background" Value="#FFEAF1F6" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
             <ControlTemplate x:Key="tmpEditableRoundedTextBox" TargetType="TextBox">
-                <Border x:Name="txtBoxBorder"
-                        CornerRadius="14"
-                        Background="#FFF5FD"
-                        BorderBrush="#4CCBCDEE"
-                        BorderThickness="0.3">
-                    <DockPanel Width="{TemplateBinding Width}" 
-                               Height="{TemplateBinding Height}"
-                               LastChildFill="False"
-                               x:Name="pnlEditableRoundedTextBox">
-                        <TextBox x:Name="edtEditableRoundedTextBox"
-                                 DockPanel.Dock="Left"
-                                 Grid.Column="0"
-                                 VerticalAlignment="Stretch"
-                                 Margin="12,6,12,6"
-                                 Text="{TemplateBinding Text}"
-                                 BorderThickness="0"
-                                 VerticalContentAlignment="Center"
-                                 Background="Transparent"
-                                 IsEnabled="False"/>
-                        <Button x:Name="imgEdit"
-                                DockPanel.Dock="Right"
-                                Width="30"
-                                Height="30"
-                                Grid.Column="1"
-                                BorderThickness="0"
-                                Template="{StaticResource tmpEditButton}"
-                                Margin="0,0,6,0">
-                        </Button>
-                    </DockPanel>
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="#FFF5FD"
+                    BorderBrush="#4CCBCDEE"
+                    BorderThickness="0.3"
+                    CornerRadius="14">
+                    <Grid
+                        x:Name="pnlEditableRoundedTextBox"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4.5*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            x:Name="edtEditableRoundedTextBox"
+                            Grid.Column="0"
+                            Margin="12,6,0,6"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsEnabled="False"
+                            Text="{TemplateBinding Text}" />
+                        <Button
+                            x:Name="imgEdit"
+                            Grid.Column="1"
+                            Width="30"
+                            Height="30"
+                            Margin="0,0,6,0"
+                            BorderThickness="0"
+                            Template="{StaticResource tmpEditButton}" />
+                    </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
-                            <Condition Property="IsMouseOver" Value="true"/>
-                            <Condition Property="IsEnabled" Value="true" SourceName="edtEditableRoundedTextBox"/>
+                            <Condition Property="IsMouseOver" Value="true" />
+                            <Condition SourceName="edtEditableRoundedTextBox" Property="IsEnabled" Value="true" />
                         </MultiTrigger.Conditions>
-                        <Setter Property="Background"
-                            TargetName="txtBoxBorder"
-                            Value="#FFDBE6FD"/>
+                        <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFF3EFF7" />
                     </MultiTrigger>
                     <EventTrigger RoutedEvent="Button.Click" SourceName="imgEdit">
                         <BeginStoryboard>
-                            <Storyboard >
-                                <BooleanAnimationUsingKeyFrames
-                                                                Storyboard.TargetName="edtEditableRoundedTextBox"
-                                                                Storyboard.TargetProperty="(TextBox.IsEnabled)">
-                                    <DiscreteBooleanKeyFrame
-                                                             KeyTime="00:00:00"
-                                                             Value="True" />
+                            <Storyboard>
+                                <BooleanAnimationUsingKeyFrames Storyboard.TargetName="edtEditableRoundedTextBox" Storyboard.TargetProperty="(TextBox.IsEnabled)">
+                                    <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
                                 </BooleanAnimationUsingKeyFrames>
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-            <ControlTemplate x:Key="tmpElevatedButton" TargetType="Button">
-                <Border x:Name="borderElevatedBtn"
-                        Width="150"
-                        Height="50"
-                        CornerRadius="12"
-                        BorderBrush="#4C005A8D"
-                        BorderThickness="0.2"
-                        Padding="6,3,6,3"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="White" Offset="0.5"/>
-                            <GradientStop Color="#FFF1F5FD" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                    <Border.Effect>
-                        <DropShadowEffect BlurRadius="6" 
-                                      Color="#4CECECF0" 
-                                      Opacity="20" 
-                                      Direction="310" />
-                    </Border.Effect>
-                    <Label Content="{TemplateBinding Content}"
-                           VerticalAlignment="Stretch"
-                           HorizontalAlignment="Stretch"
-                           HorizontalContentAlignment="Center"
-                           VerticalContentAlignment="Center"
-                           Background="Transparent"
-                           BorderThickness="0"
-                           Foreground="#022E57"
-                           FontFamily="Fonts/#Titillium Web"
-                           FontWeight="{TemplateBinding FontWeight}"
-                           FontSize="{TemplateBinding FontSize}"/>
+            <ControlTemplate x:Key="tmpSearchableRoundedTextBox" TargetType="TextBox">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="#FFF5FD"
+                    BorderBrush="#4CCBCDEE"
+                    BorderThickness="0.3"
+                    CornerRadius="14">
+                    <Grid
+                        x:Name="pnlSearchableRoundedTextBox"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            x:Name="edtSearchableRoundedTextBox"
+                            Grid.Column="0"
+                            Margin="12,6,0,6"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0" />
+                        <Button
+                            x:Name="imgSearch"
+                            Grid.Column="1"
+                            Width="30"
+                            Height="30"
+                            Margin="0,0,6,0"
+                            BorderThickness="0"
+                            Template="{StaticResource tmpSearchButton}" />
+                    </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
                     <Trigger Property="IsMouseOver" Value="true">
-                        <Setter Property="Background" TargetName="borderElevatedBtn" Value="#FFDBE6FD"/>
+                        <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFF3EFF7" />
                     </Trigger>
                 </ControlTemplate.Triggers>
             </ControlTemplate>
-            
+            <ControlTemplate x:Key="tmpElevatedButton" TargetType="Button">
+                <Border
+                    x:Name="borderElevatedBtn"
+                    Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}"
+                    Padding="6,3,6,3"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    BorderBrush="#4C005A8D"
+                    BorderThickness="0.2"
+                    CornerRadius="12">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Offset="0.5" Color="White" />
+                            <GradientStop Offset="1" Color="#FFF1F5FD" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Effect>
+                        <DropShadowEffect
+                            BlurRadius="6"
+                            Direction="310"
+                            Opacity="20"
+                            Color="#4CECECF0" />
+                    </Border.Effect>
+                    <Label
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Content="{TemplateBinding Content}"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="#022E57" />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter TargetName="borderElevatedBtn" Property="Background" Value="#FFEAF1F6" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

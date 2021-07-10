@@ -1,0 +1,336 @@
+﻿<Window
+    x:Class="LibraryManagement.FrmPayment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LibraryManagement"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="FrmPayment"
+    Width="700"
+    Height="355"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
+            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#FFE4E3E5"
+                    BorderThickness="0.4"
+                    CornerRadius="14" />
+                <TextBox
+                    x:Name="edt"
+                    Margin="12,6,12,6"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    MaxLength="{TemplateBinding MaxLength}"
+                    TextChanged="edt_TextChanged" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedIconButton" TargetType="Button">
+            <Border
+                x:Name="btnBorder"
+                Background="{TemplateBinding Background}"
+                CornerRadius="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="-60,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Text="{TemplateBinding Content}" />
+                    <Image
+                        Grid.Column="1"
+                        Width="24"
+                        Height="24"
+                        Margin="40,0,0,0"
+                        Source="Images/login.png" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="btnBorder" Property="Background" Value="#FF33555D" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="101*" />
+            <RowDefinition Height="227*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1.8*" />
+        </Grid.ColumnDefinitions>
+        <Canvas
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            Margin="0,0,0.4,0">
+            <Label
+                Grid.Row="1"
+                Canvas.Left="30"
+                Canvas.Top="50"
+                Content="Payment Form"
+                FontFamily="Fonts/#Arvo"
+                FontSize="25"
+                FontWeight="Bold"
+                Foreground="#022E57" />
+            <Label
+                x:Name="lblFee"
+                Grid.Row="1"
+                Canvas.Left="30"
+                Canvas.Top="110"
+                Content="Fee : 230$"
+                FontFamily="Fonts/#Titillium Web"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="#FF005A8D" />
+            <Rectangle
+                Canvas.Left="-81"
+                Canvas.Top="214"
+                Width="280"
+                Height="133"
+                Panel.ZIndex="1"
+                Fill="#293B5F"
+                RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform AngleY="4.747" />
+                        <RotateTransform Angle="35" />
+                        <TranslateTransform X="-4.406" Y="9.448" />
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle
+                Canvas.Left="44"
+                Canvas.Top="271"
+                Width="519"
+                Height="82"
+                Panel.ZIndex="0"
+                Fill="#47597E"
+                RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform AngleY="0.226" />
+                        <RotateTransform Angle="13" />
+                        <TranslateTransform X="-2.559" Y="-1.028" />
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Canvas>
+        <Border
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="400"
+            Height="280"
+            Margin="23.6,24,23.2,24"
+            Padding="10,15,10,5"
+            BorderBrush="#4C116790"
+            BorderThickness="0"
+            CornerRadius="4">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                    <GradientStop Offset="0.5" Color="White" />
+                    <GradientStop Offset="1" Color="#FFDEE0E5" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="12"
+                    Direction="350"
+                    Opacity="20"
+                    Color="#4CECECF0" />
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Row="0"
+                    Margin="5,0,5,0"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="10,0,0,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="11"
+                        Foreground="#FF005A8D"
+                        Text="Card Number :" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Name="edtCardNumber1"
+                            Grid.Column="0"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="4"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                        <TextBox
+                            Name="edtCardNumber2"
+                            Grid.Column="1"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="4"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                        <TextBox
+                            Name="edtCardNumber3"
+                            Grid.Column="2"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="4"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                        <TextBox
+                            Name="edtCardNumber4"
+                            Grid.Column="3"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="4"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="5,0,5,0"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="10,0,0,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="11"
+                        Foreground="#FF005A8D"
+                        Text="CVV :" />
+                    <TextBox
+                        Name="edtCVV"
+                        Width="172.6"
+                        Height="40"
+                        Margin="6.4,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="#FFF6F5F7"
+                        FontFamily="Fonts/#Titillium Web"
+                        MaxLength="4"
+                        Template="{StaticResource tmpRoundedTextBox}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="5,0,5,0"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="10,0,0,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="11"
+                        Foreground="#FF005A8D"
+                        Text="Exprie Date :" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Name="edtExpDate1"
+                            Grid.Column="0"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="2"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                        <TextBox
+                            Name="edtExpDate2"
+                            Grid.Column="1"
+                            Width="80"
+                            Height="40"
+                            Margin="5,0,5,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            MaxLength="2"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                    </Grid>
+                </StackPanel>
+                <Button
+                    Name="btnPay"
+                    Grid.Row="3"
+                    Height="40"
+                    Margin="12,0,12,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Background="#053742"
+                    BorderBrush="#005A8D"
+                    Content="Proceed"
+                    FontFamily="Fonts/#Titillium Web"
+                    FontSize="16"
+                    Foreground="White"
+                    Template="{StaticResource tmpRoundedIconButton}" Click="btnPay_Click" 
+                    />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

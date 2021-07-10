@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\
 LibraryManagement
 none
 false
 DEBUG;TRACE
-C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\App.xaml
-4810937877
+C:\lb\LibraryManagement\LibraryManagement\App.xaml
+62026137781
 
-8-1761185761
-13-1505183044
-FrmEmployees.xaml;FrmLogin.xaml;FrmSignup.xaml;MainWindow.xaml;
+112010000828
+141183416626
+FrmAdmin.xaml;FrmEmployees.xaml;FrmLogin.xaml;FrmMembers.xaml;FrmSignup.xaml;MainWindow.xaml;
 
-False
+True
 

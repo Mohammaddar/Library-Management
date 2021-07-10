@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,11 +56,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="FrmAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FrmEmployees.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FrmLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FrmMembers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -75,11 +84,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FrmAdmin.xaml.cs">
+      <DependentUpon>FrmAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FrmEmployees.xaml.cs">
       <DependentUpon>FrmEmployees.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmLogin.xaml.cs">
       <DependentUpon>FrmLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMembers.xaml.cs">
+      <DependentUpon>FrmMembers.xaml</DependentUpon>
     </Compile>
     <Compile Include="FrmSignup.xaml.cs">
       <DependentUpon>FrmSignup.xaml</DependentUpon>
@@ -90,6 +105,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Member.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -125,16 +141,10 @@
     <Resource Include="Images\books.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\rolls.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\icBack.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\profile_mini.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\wallet.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\edit.png" />
@@ -144,6 +154,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\lib3.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\wallet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\profile_mini_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,3 @@
-C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csprojAssemblyReference.cache
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmLogin.g.cs
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\MainWindow.g.cs
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\App.g.cs
@@ -20,3 +19,20 @@ C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmSign
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\App.baml
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmEmployees.g.cs
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmEmployees.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csproj.AssemblyReference.cache
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMembers.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMembers.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAdmin.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAdmin.baml
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.csprojAssemblyReference.cache
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\FrmAdmin.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\FrmEmployees.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\FrmLogin.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\FrmMembers.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\FrmSignup.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\MainWindow.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\App.g.cs
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_MarkupCompile.cache
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement_MarkupCompile.lref
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.exe
+C:\lb\LibraryManagement\LibraryManagement\obj\Debug\LibraryManagement.pdb
