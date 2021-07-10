@@ -9,6 +9,7 @@
     Width="920"
     Height="570"
     Background="#F6F5F5"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <ControlTemplate x:Key="tmpTabItem" TargetType="RadioButton">
@@ -206,6 +207,7 @@
                         Height="45"
                         Background="Transparent"
                         BorderThickness="0"
+                        Click="btnListEmployeesItemRemove_Click"
                         Content="Remove"
                         FontFamily="Fonts/#Titillium Web"
                         FontSize="12"
@@ -268,6 +270,7 @@
                         <ListBoxItem />
                     </StackPanel>
                     <ListBox
+                        x:Name="EmployeesListbox"
                         Height="265"
                         Margin="0,0,0,0"
                         Background="Transparent"
@@ -322,7 +325,7 @@
                         <Label
                             Width="100"
                             Margin="10,0,0,0"
-                            Content="Publisher"
+                            Content="Count"
                             FontFamily="Fonts/#Titillium Web"
                             FontSize="14"
                             Foreground="#005A8D" />
@@ -343,6 +346,31 @@
                     </ListBox>
                 </StackPanel>
             </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
+            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#FFE4E3E5"
+                    BorderThickness="0.4"
+                    CornerRadius="14" />
+                <TextBox
+                    x:Name="edt"
+                    Margin="12,6,12,6"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    MaxLength="{TemplateBinding MaxLength}"
+                    TextChanged="edt_TextChanged" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
 
@@ -391,22 +419,25 @@
                 <RadioButton
                     x:Name="rbEmployees"
                     Grid.Row="1"
+                    Checked="rbEmployees_Checked"
                     Content="Employees"
                     FontSize="18"
                     IsChecked="True"
-                    Template="{StaticResource tmpTabItem}" Checked="rbEmployees_Checked" />
+                    Template="{StaticResource tmpTabItem}" />
                 <RadioButton
                     x:Name="rbBooks"
                     Grid.Row="2"
+                    Checked="rbBooks_Checked"
                     Content="Books"
                     FontSize="18"
-                    Template="{StaticResource tmpTabItem}" Checked="rbBooks_Checked" />
+                    Template="{StaticResource tmpTabItem}" />
                 <RadioButton
                     x:Name="rbWallet"
                     Grid.Row="3"
+                    Checked="rbWallet_Checked"
                     Content="Wallet"
                     FontSize="18"
-                    Template="{StaticResource tmpTabItem}" Checked="rbWallet_Checked" />
+                    Template="{StaticResource tmpTabItem}" />
                 <Rectangle
                     Grid.Row="5"
                     Margin="61,116.2,-32.4,-36.2"
@@ -541,6 +572,7 @@
                                 VerticalAlignment="Stretch"
                                 Background="Transparent"
                                 BorderThickness="0"
+                                Click="btnAddEmployee_Click"
                                 Content="Add Employee"
                                 FontSize="15"
                                 FontWeight="Bold"
@@ -598,6 +630,7 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
+                            Click="btnAddBook_Click"
                             Content="Add Book"
                             FontSize="15"
                             FontWeight="Bold"
@@ -606,60 +639,113 @@
                 </TabItem>
                 <TabItem x:Name="tabItemWallet" Visibility="Collapsed">
                     <StackPanel>
-                        <Border CornerRadius="12"
+                        <Border
                             Height="200"
+                            Margin="40,20,30,30"
                             BorderBrush="#4C116790"
                             BorderThickness="0.2"
-                            Margin="40,20,30,30">
+                            CornerRadius="12">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                    <GradientStop Color="#FFF1F5FD" Offset="1"/>
+                                    <GradientStop Offset="0.5" Color="White" />
+                                    <GradientStop Offset="1" Color="#FFF1F5FD" />
                                 </LinearGradientBrush>
                             </Border.Background>
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="12" Color="#4CECECF0" Opacity="20" Direction="310" />
+                                <DropShadowEffect
+                                    BlurRadius="12"
+                                    Direction="310"
+                                    Opacity="20"
+                                    Color="#4CECECF0" />
                             </Border.Effect>
                             <StackPanel Orientation="Vertical">
-                                <Label Content="Library Wallet Balance :"
-                               FontSize="24"
-                               FontFamily="Fonts/#Titillium Web"
-                               FontWeight="Bold"
-                               Foreground="#11698E"
-                               Margin="40,40,0,0"/>
-                                <Label Name="lblLibraryBlalnce"
-                               Content="12360$"
-                               FontSize="20"
-                               FontFamily="Fonts/#Titillium Web"
-                               Foreground="#11698E"
-                               Margin="40,0,0,0"/>
-                                <Image Width="200"
-                                   Height="200"
-                                   Source="Images/wallet.png"
-                                   Margin="400,-120,0,0" RenderTransformOrigin="0.5,0.5">
+                                <Label
+                                    Margin="40,40,0,0"
+                                    Content="Library Wallet Balance :"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="#11698E" />
+                                <Label
+                                    Name="lblLibraryBlalnce"
+                                    Margin="40,0,0,0"
+                                    Content="12360$"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    FontSize="20"
+                                    Foreground="#11698E" />
+                                <Image
+                                    Width="200"
+                                    Height="200"
+                                    Margin="400,-120,0,0"
+                                    RenderTransformOrigin="0.5,0.5"
+                                    Source="Images/wallet.png">
                                     <Image.RenderTransform>
                                         <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform Angle="-20"/>
-                                            <TranslateTransform/>
+                                            <ScaleTransform />
+                                            <SkewTransform />
+                                            <RotateTransform Angle="-20" />
+                                            <TranslateTransform />
                                         </TransformGroup>
                                     </Image.RenderTransform>
                                 </Image>
                             </StackPanel>
                         </Border>
-                        <Button Name="btnIncreaseBalance"
+                        <Grid HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Grid.Row="0"
+                                Width="200"
+                                Height="50"
+                                Margin="40,10,10,30"
+                                Padding="0,3,0,3"
+                                VerticalAlignment="Center"
+                                BorderBrush="#4C005A8D"
+                                BorderThickness="0.2"
+                                CornerRadius="12">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                        <GradientStop Offset="0.9" Color="White" />
+                                        <GradientStop Offset="1" Color="#FFF1F5FD" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="6"
+                                        Direction="310"
+                                        Opacity="20"
+                                        Color="#4CECECF0" />
+                                </Border.Effect>
+                                <TextBox
+                                    Name="edtIncreaseBalance"
+                                    Width="180"
+                                    Height="40"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    VerticalContentAlignment="Center"
+                                    Background="#FFF5FD"
+                                    FontFamily="Fonts/#Titillium Web"
+                                    Template="{DynamicResource tmpRoundedTextBox}"
+                                    Text="Search..." />
+                            </Border>
+                            <Button
+                                Name="btnIncreaseBalance"
+                                Grid.Column="1"
                                 Width="180"
                                 Height="50"
-                                Margin="40,0,20,20"
-                                Content="Increase Balance"
-                                Template="{DynamicResource tmpElevatedButton}"
-                                VerticalAlignment="Stretch"
+                                Margin="10,-20,0,0"
                                 HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
                                 Background="Transparent"
                                 BorderThickness="0"
+                                Click="btnIncreaseBalance_Click"
+                                Content="Increase Balance"
+                                FontSize="15"
                                 FontWeight="Bold"
-                                FontSize="15"/>
+                                Template="{DynamicResource tmpElevatedButton}" />
+                        </Grid>
                     </StackPanel>
                 </TabItem>
             </TabControl>

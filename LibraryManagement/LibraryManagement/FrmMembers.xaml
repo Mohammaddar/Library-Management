@@ -714,8 +714,8 @@
                     </StackPanel>
                 </Border>
                 <Border
-                    Width="160"
                     Height="50"
+                    MaxWidth="220"
                     Margin="0,30,44,30"
                     Padding="6,3,6,3"
                     BorderBrush="#4C005A8D"
