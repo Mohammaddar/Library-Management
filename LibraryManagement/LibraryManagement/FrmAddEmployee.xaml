@@ -107,7 +107,7 @@
         Panel.ZIndex="1"
         BorderBrush="#4C116790"
         BorderThickness="0"
-        CornerRadius="4">
+        CornerRadius="12">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                 <GradientStop Offset="0.5" Color="White" />
@@ -288,7 +288,7 @@
                 VerticalAlignment="Stretch"
                 Background="#053742"
                 BorderBrush="#005A8D"
-                Click="btnSignup_Click"
+                Click="btnAddEmployee_Click"
                 Content="Add Employee"
                 FontFamily="Fonts/#Titillium Web"
                 FontSize="16"

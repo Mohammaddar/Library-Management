@@ -15,21 +15,16 @@ using System.Windows.Shapes;
 namespace LibraryManagement
 {
     /// <summary>
-    /// Interaction logic for FrmAddEmployee.xaml
+    /// Interaction logic for FrmAddBook.xaml
     /// </summary>
-    public partial class FrmAddEmployee : Window
+    public partial class FrmAddBook : Window
     {
-        public FrmAddEmployee()
+        public FrmAddBook()
         {
             InitializeComponent();
         }
 
-        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSetPic_Click(object sender, RoutedEventArgs e)
+        private void btnAddBook_Click(object sender, RoutedEventArgs e)
         {
 
         }
