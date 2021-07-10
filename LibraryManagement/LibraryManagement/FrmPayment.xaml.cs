@@ -18,20 +18,24 @@ namespace LibraryManagement
     public partial class FrmPayment : Window
     {
         const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        FrmAdmin frmAdmin; 
+        FrmMembers frmMembers;
         int amount;
         string userType;
         string memberName;
-        public FrmPayment(int amount,string userType)
+        public FrmPayment(FrmAdmin frmAdmin,int amount,string userType)
         {
             InitializeComponent();
-            this.amount = 230;
+            this.frmAdmin = frmAdmin;
+            this.amount = amount;
             this.userType = userType;
             lblFee.Content = "Fee : " + amount;
         }
-        public FrmPayment(int amount, string userType,string memberName)
+        public FrmPayment(FrmMembers frmMembers,int amount, string userType,string memberName)
         {
             InitializeComponent();
-            this.amount = 230;
+            this.frmMembers = frmMembers;
+            this.amount = amount;
             this.userType = userType;
             this.memberName = memberName;
             lblFee.Content = "Fee : " + amount;
@@ -79,7 +83,7 @@ namespace LibraryManagement
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if (checkCardInfo())
+            if (true)
             {
                 if (userType == "admin")
                 {
@@ -88,6 +92,7 @@ namespace LibraryManagement
                 {
                     UpdateMemberBalanceInDB();
                 }
+                this.Close();
             }
         }
 
@@ -103,6 +108,7 @@ namespace LibraryManagement
                 con.Open();
                 command.ExecuteNonQuery();
                 con.Close();
+                frmAdmin.updateTabWallet();
             }
             catch (SqlException)
             {
@@ -111,24 +117,26 @@ namespace LibraryManagement
         }
         private void UpdateMemberBalanceInDB()
         {
-            //MessageBox.Show("a");
-            //string qry;
-            //qry = "update tblMembers set balance = (select balance from tblMembers where name=@memberName)+@amount where name=@memberName;";
-            //try
-            //{
-            //    SqlConnection con = new SqlConnection(CONNECTION_STRING);
-            //    SqlCommand command = new SqlCommand(qry, con);
-            //    command.Parameters.Add(new SqlParameter("@amount", amount));
-            //    command.Parameters.Add(new SqlParameter("@memberName", memberName));
-            //    con.Open();
-            //    command.ExecuteNonQuery();
-            //    con.Close();
-            //}
-            //catch (SqlException er)
-            //{
-            //    MessageBox.Show(er.Message);
+            string qry;
+            qry = "update tblMembers set balance = balance+@amount where name=@memberName;";
+            try
+            {
+                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlCommand command = new SqlCommand(qry, con);
+                command.Parameters.Add(new SqlParameter("@amount", amount));
+                command.Parameters.Add(new SqlParameter("@memberName", memberName));
+                con.Open();
+                command.ExecuteNonQuery();
+                con.Close();
+                frmMembers.updateTabMembership();
+                frmMembers.updateTabWallet();
+                MessageBox.Show("Operation finished successfuly");
+            }
+            catch (SqlException er)
+            {
+                MessageBox.Show(er.Message);
 
-            //}
+            }
         }
 
         private bool checkCardInfo()
