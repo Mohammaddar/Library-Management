@@ -488,7 +488,7 @@
                     <Label
                         Name="lblAdminName"
                         VerticalContentAlignment="Center"
-                        Content="Marvin Robson"
+                        Content="Admin"
                         FontFamily="Fonts/#Titillium Web"
                         FontSize="14" />
                     <Image
