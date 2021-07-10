@@ -1,0 +1,299 @@
+﻿<Window
+    x:Class="LibraryManagement.FrmAddEmployee"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:LibraryManagement"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="FrmAddEmployee"
+    Width="500"
+    Height="450"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ControlTemplate x:Key="tmpRoundedImage" TargetType="Button">
+            <Border
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="90">
+                <Canvas Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <Image
+                        x:Name="imgProfile"
+                        Width="126"
+                        Height="126"
+                        Source="Images/profile.png"
+                        Stretch="Fill">
+                        <Image.Clip>
+                            <RectangleGeometry
+                                RadiusX="90"
+                                RadiusY="90"
+                                Rect="0,0,126,126" />
+                        </Image.Clip>
+                    </Image>
+                    <Button
+                        x:Name="btnSetPic"
+                        Canvas.Left="18"
+                        Canvas.Top="48"
+                        Width="90"
+                        Height="35"
+                        Background="#FFFFF5FD"
+                        Click="btnSetPic_Click"
+                        Content="Change"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="10"
+                        Foreground="Black"
+                        Opacity="0.8"
+                        Template="{DynamicResource tmpRoundedButton}"
+                        Visibility="Hidden" />
+                </Canvas>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="btnSetPic" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="imgProfile" Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedIconButton" TargetType="Button">
+            <Border
+                x:Name="btnBorder"
+                Background="{TemplateBinding Background}"
+                CornerRadius="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="-60,0,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontSize="{TemplateBinding FontSize}"
+                        FontWeight="{TemplateBinding FontWeight}"
+                        Foreground="{TemplateBinding Foreground}"
+                        Text="{TemplateBinding Content}" />
+                    <Image
+                        Grid.Column="1"
+                        Width="24"
+                        Height="24"
+                        Margin="40,0,0,0"
+                        Source="Images/login.png" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="btnBorder" Property="Background" Value="#FF33555D" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Border
+        Grid.Column="1"
+        Canvas.Right="50"
+        Canvas.Bottom="60"
+        Width="440"
+        Height="360"
+        Padding="10,0,10,5"
+        Panel.ZIndex="1"
+        BorderBrush="#4C116790"
+        BorderThickness="0"
+        CornerRadius="4">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Offset="0.5" Color="White" />
+                <GradientStop Offset="1" Color="#FFDEE0E5" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect
+                BlurRadius="12"
+                Direction="350"
+                Opacity="20"
+                Color="#4CECECF0" />
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.4*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Name="btnProfile"
+                    Grid.Column="0"
+                    Width="130"
+                    Height="130"
+                    Margin="20,10,0,0"
+                    Template="{StaticResource tmpRoundedImage}">
+                    <Button
+                        Width="75"
+                        Height="100"
+                        Content="Button" />
+                </Button>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="0,20,0,0"
+                        Orientation="Vertical">
+                        <TextBlock
+                            Margin="30,0,0,2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="12"
+                            Foreground="#FF005A8D"
+                            Text="User name :" />
+                        <TextBox
+                            Name="edtUserName"
+                            Grid.Row="2"
+                            Width="210"
+                            Height="40"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <TextBlock
+                            Margin="30,0,0,2"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="12"
+                            Foreground="#FF005A8D"
+                            Text="Phone number :" />
+                        <TextBox
+                            Name="edtPhoneNum"
+                            Width="210"
+                            Height="40"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            VerticalContentAlignment="Center"
+                            Background="#FFF6F5F7"
+                            FontFamily="Fonts/#Titillium Web"
+                            Template="{StaticResource tmpRoundedTextBox}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <TextBlock
+                    Margin="30,0,0,2"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    FontFamily="Fonts/#Titillium Web"
+                    FontSize="12"
+                    Foreground="#FF005A8D"
+                    Text="Email :" />
+                <TextBox
+                    Name="edtEmail"
+                    Width="378"
+                    Height="40"
+                    Margin="21,0,21,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="#FFF6F5F7"
+                    FontFamily="Fonts/#Titillium Web"
+                    Template="{StaticResource tmpRoundedTextBox}" />
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1.3*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="0,-4,0,0"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="30,0,0,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="12"
+                        Foreground="#FF005A8D"
+                        Text="Salary :" />
+                    <TextBox
+                        Name="edtSalary"
+                        Width="150"
+                        Height="40"
+                        Margin="9.2,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="#FFF6F5F7"
+                        FontFamily="Fonts/#Titillium Web"
+                        Template="{DynamicResource tmpRoundedTextBox}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,-4,0,0"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="15,0,0,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="12"
+                        Foreground="#FF005A8D"
+                        Text="Password :" />
+                    <PasswordBox
+                        Name="edtPassword"
+                        Width="210"
+                        Height="40"
+                        Margin="-14.8,0,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="#FFDED9E3"
+                        FontFamily="Fonts/#Titillium Web"
+                        Template="{DynamicResource tmpRoundedPassBox}" />
+                </StackPanel>
+            </Grid>
+            <Button
+                Name="btnAddEmployee"
+                Grid.Row="3"
+                Width="378"
+                Height="40"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#053742"
+                BorderBrush="#005A8D"
+                Click="btnSignup_Click"
+                Content="Add Employee"
+                FontFamily="Fonts/#Titillium Web"
+                FontSize="16"
+                Foreground="White"
+                Template="{DynamicResource tmpRoundedIconButton}" />
+        </Grid>
+    </Border>
+</Window>
