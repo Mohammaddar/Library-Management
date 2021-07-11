@@ -21,7 +21,7 @@ namespace LibraryManagement
     public partial class FrmAdmin : Window
     {
         List<lsAllMembersItem> employeeslist = new List<lsAllMembersItem>();
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         private string balance;
         public FrmAdmin()
         {
@@ -48,20 +48,19 @@ namespace LibraryManagement
                     SqlDataReader reader = command1.ExecuteReader();
                     if (reader.HasRows)
                     {
-                      int counter = 1;
                         while (reader.Read())
                         {
                             lsAllMembersItems.Add(new lsAllMembersItem
                             {
-                                
-                            Info0 = counter++,
-                            Info1 = reader.GetString(1),
-                            Info2 = reader.GetString(3),
-                            Info3 = reader.GetString(4),
-                            Info4 = reader.GetString(6)
-                          });
+                                Info0 = reader.GetInt32(0),
+                                Info1 = reader.GetString(1),
+                                Info2 = reader.GetString(3),
+                                Info3 = reader.GetString(4),
+                                Info4 = reader.GetString(6)
+                            });
+
                         }
-                        reader.close();
+                        reader.Close();
 
                     }
                     else
@@ -69,48 +68,46 @@ namespace LibraryManagement
                         //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
                         reader.Close();
 
-
                     }
-                SqlDataReader reader2 = command2.ExecuteReader();
-                if (reader2.HasRows)
-                {
-                    int counter = 1;
-                    while (reader2.Read())
+                    reader = command2.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                       
+                        while (reader.Read())
+                        {
                             lsAllBooksItems.Add(new lsAllMembersItem
                             {
-                            Info0 = counter++,
-                            Info1 = reader2.GetString(1),
-                            Info2 = reader2.GetString(2),
-                            Info3 = reader2.GetString(3),
-                            Info4 = reader2.GetInt32(5) + ""
-                        });
+                                Info0 = reader.GetInt32(0),
+                                Info1 = reader.GetString(1),
+                                Info2 = reader.GetString(2),
+                                Info3 = reader.GetString(3),
+                                Info4 = reader.GetString(4)
+                            });
+
+                        }
+                        reader.Close();
 
                     }
-                    reader2.Close();
-
-                }
-                else
-                {
-                    reader2.Close();
-                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
-                }
-                SqlDataReader reader3 = command3.ExecuteReader();
-                if (reader3.HasRows)
-                {
-                    while (reader3.Read())
+                    else
                     {
-                        balance = reader3.GetString(3);
+                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                        reader.Close();
                     }
-                    reader3.Close();
+                    reader = command3.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            balance = reader.GetString(3);
+                        }
+                        reader.Close();
 
-                }
-                else
-                {
-                    reader3.Close();
-                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
-                }
+                    }
+                    else
+                    {
+                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                        reader.Close();
+                    }
+
 
                 }
 
@@ -123,7 +120,6 @@ namespace LibraryManagement
             {
                 MessageBox.Show(e.Message);
             }
-            
         }
 
 
@@ -152,9 +148,11 @@ namespace LibraryManagement
 
         private void btnListEmployeesItemRemove_Click(object sender, RoutedEventArgs e)
         {
+            const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+
+            ListBox lsAllEmployees_inner = (ListBox)lsEmployees.Template.FindName("EmployeesListbox", lsEmployees);
             try
             {
-                ListBox lsAllEmployees_inner = (ListBox)lsEmployees.Template.FindName("EmployeesListbox", lsEmployees);
                 int removed_index = lsAllEmployees_inner.SelectedIndex;
                 SqlConnection con = new SqlConnection(CONNECTION_STRING);
                 con.Open();
@@ -166,7 +164,7 @@ namespace LibraryManagement
 
                 //set the table after remove
 
-                List<lsAllMembersItem> lsAllMembersItems = new List<lsAllMembersItem>();
+                List<lsAllMembersItem> employeesList = new List<lsAllMembersItem>();
                 SqlConnection connection = new SqlConnection(CONNECTION_STRING);
                 using (connection)
                 {
@@ -175,15 +173,15 @@ namespace LibraryManagement
                         connection);
 
                     connection.Open();
+
                     SqlDataReader reader = command1.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        int counter=1;
                         while (reader.Read())
                         {
-                            lsAllMembersItems.Add(new lsAllMembersItem
+                            employeesList.Add(new lsAllMembersItem
                             {
-                                Info0 = counter++,
+                                Info0 = reader.GetInt32(0),
                                 Info1 = reader.GetString(1),
                                 Info2 = reader.GetString(3),
                                 Info3 = reader.GetString(4),
@@ -201,27 +199,74 @@ namespace LibraryManagement
                     }
 
                 }
-
-                lsEmployees.ItemsSource = lsAllMembersItems;
+                connection.Close();
+                lsEmployees.ItemsSource = employeesList;
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message);
             }
-            
 
 
         }
 
         private void tabAdmin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string qry = "DELETE FROM tblEmployees WHERE name='" + employeeslist[removed_index].Info1 + "'";
-            SqlCommand command = new SqlCommand(qry, con);
-            command.ExecuteNonQuery();
-            con.Close();
+
         }
 
-        private void BtnPaySalaries_OnClick(object sender, RoutedEventArgs e)
+        private void btnIncreaseBalance_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
+            if (tbIncreaseBalance.Text != "")
+            {
+                new FrmPayment(this, int.Parse(tbIncreaseBalance.Text), "admin").Show();
+            }
+            else
+            {
+                MessageBox.Show("Please specify the amount you want to increase your balance");
+            }
+        }
+
+        public void updateTabWallet()
+        {
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+            SqlCommand command3 = new SqlCommand(
+                    "SELECT * FROM tblAdmins;",
+                    connection);
+            connection.Open();
+            SqlDataReader reader3 = command3.ExecuteReader();
+            if (reader3.HasRows)
+            {
+                while (reader3.Read())
+                {
+                    lblLibraryBlalnce.Content = reader3.GetString(3);
+                }
+                reader3.Close();
+
+            }
+        }
+
+        private void edt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender.GetHashCode() == ((TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance)).GetHashCode())
+            {
+                TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
+                tbIncreaseBalance.Text = new string(tbIncreaseBalance.Text.Where(c => char.IsDigit(c)).ToArray());
+            }
+        }
+
+        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddBook_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPaySalaries_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -349,9 +394,7 @@ namespace LibraryManagement
             {
                 MessageBox.Show(exception.Message);
             }
-            
         }
-
         private List<lsAllEmployeesItem> GetAllEmployeesfromdb()
         {
 
@@ -400,135 +443,6 @@ namespace LibraryManagement
             return employees;
         }
 
-        private void btnListEmployeesItemRemove_Click_1(object sender, RoutedEventArgs e)
-        {
-            const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
-
-            ListBox lsAllEmployees_inner = (ListBox)lsEmployees.Template.FindName("EmployeesListbox", lsEmployees);
-            try
-            {
-                int removed_index = lsAllEmployees_inner.SelectedIndex;
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
-                con.Open();
-
-                string qry = "DELETE FROM tblEmployees WHERE id='" + employeeslist[removed_index].Info0 + "'";
-                SqlCommand command = new SqlCommand(qry, con);
-                command.ExecuteNonQuery();
-                con.Close();
-
-                //set the table after remove
-
-                List<lsAllMembersItem> employeesList = new List<lsAllMembersItem>();
-                SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-                using (connection)
-                {
-                    SqlCommand command1 = new SqlCommand(
-                        "SELECT * FROM tblEmployees;",
-                        connection);
-
-                    connection.Open();
-
-                    SqlDataReader reader = command1.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            employeesList.Add(new lsAllMembersItem
-                            {
-                                Info0 = reader.GetInt32(0),
-                                Info1 = reader.GetString(1),
-                                Info2 = reader.GetString(3),
-                                Info3 = reader.GetString(4),
-                                Info4 = reader.GetString(6)
-
-                            });
-
-                        }
-                        reader.Close();
-
-                    }
-                    else
-                    {
-                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
-                    }
-
-                }
-                connection.Close();
-                lsEmployees.ItemsSource = employeesList;
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-            
-
-        }
-
-        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            FrmAddEmployee frmAddEmployee = new FrmAddEmployee();
-            frmAddEmployee.Show();
-            this.Close();
-            
-        }
-
-        private void btnAddBook_Click(object sender, RoutedEventArgs e)
-        {
-            FrmAddBook frmAddBook = new FrmAddBook();
-            frmAddBook.Show();
-            this.Close();
-        }
-
-        private void btnIncreaseBalance_Click(object sender, RoutedEventArgs e)
-        {
-            TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
-            if (tbIncreaseBalance.Text != "")
-            {
-                new FrmPayment(this, int.Parse(tbIncreaseBalance.Text), "admin").Show();
-            }
-            else
-            {
-                MessageBox.Show("Please specify the amount you want to increase your balance");
-            }
-        }
-
-        public void updateTabWallet()
-        {
-            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-            SqlCommand command3 = new SqlCommand(
-                    "SELECT * FROM tblAdmins;",
-                    connection);
-            connection.Open();
-            SqlDataReader reader3 = command3.ExecuteReader();
-            if (reader3.HasRows)
-            {
-                while (reader3.Read())
-                {
-                    lblLibraryBlalnce.Content = reader3.GetString(3);
-                }
-                reader3.Close();
-
-            }
-        }
-
-        private void edt_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender.GetHashCode() == ((TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance)).GetHashCode())
-            {
-                TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
-                tbIncreaseBalance.Text = new string(tbIncreaseBalance.Text.Where(c => char.IsDigit(c)).ToArray());
-            }
-        }
-
-        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnAddBook_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
     public class lsEmployeesItem

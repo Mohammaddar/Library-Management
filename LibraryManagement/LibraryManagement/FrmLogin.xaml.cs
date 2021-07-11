@@ -20,7 +20,7 @@ namespace LibraryManagement
     /// </summary>
     public partial class FrmLogin : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         public FrmLogin()
         {
             InitializeComponent();
@@ -28,11 +28,6 @@ namespace LibraryManagement
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-          
-        }
-
-        private void btnLogin_Click_1(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -193,8 +188,8 @@ namespace LibraryManagement
             {
                 MessageBox.Show(exception.Message);
             }
-           
+
         }
+
     }
 }
-
