@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\App.xaml
-62026137781
+9-1844954920
 
-121167641461
+17972838832
 141183416626
-FrmAdmin.xaml;FrmEmployees.xaml;FrmLogin.xaml;FrmMembers.xaml;FrmSignup.xaml;MainWindow.xaml;
+FrmAddBook.xaml;FrmAddEmployee.xaml;FrmAdmin.xaml;FrmEmployees.xaml;FrmLogin.xaml;FrmMemberInfo.xaml;FrmMembers.xaml;FrmPayment.xaml;FrmSignup.xaml;
 
 True
 

@@ -20,7 +20,7 @@ namespace LibraryManagement
     /// </summary>
     public partial class FrmLogin : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         public FrmLogin()
         {
             InitializeComponent();
@@ -29,172 +29,148 @@ namespace LibraryManagement
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-          
-        }
-
-        private void btnLogin_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
+            TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edt", edtUserName);
+            PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
+            if ((bool)rbAdmin.IsChecked)
             {
-                TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edt", edtUserName);
-                PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
-                if ((bool)rbAdmin.IsChecked)
+                if (tbUserName.Text == "admin")
                 {
-                    if (tbUserName.Text == "admin")
+                    if (tbPassword.Password == "AdminLib123")
                     {
-                        if (tbPassword.Password == "AdminLib123")
+                        FrmAdmin frmAdmin = new FrmAdmin();
+                        frmAdmin.Show();
+                        this.Close();
+                    }
+                }
+            }
+
+            if ((bool)rbEmployee.IsChecked)
+            {
+
+                List<lsAllEmployeesItem> lsAllEmployees = new List<lsAllEmployeesItem>();
+                SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+
+                using (connection)
+                {
+                    SqlCommand command1 = new SqlCommand(
+                        "SELECT * FROM tblEmployees;",
+                        connection);
+
+                    connection.Open();
+
+                    SqlDataReader reader = command1.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
                         {
-                            FrmAdmin frmAdmin = new FrmAdmin();
-                            frmAdmin.Show();
-                            this.Close();
+                            lsAllEmployees.Add(new lsAllEmployeesItem
+                            {
+                                Info0 = reader.GetInt32(0),
+                                Info1 = reader.GetString(1),
+                                Info2 = reader.GetString(2),
+                                Info3 = reader.GetString(3),
+                                Info4 = reader.GetString(4),
+                                //Info5 = reader.GetString(5),
+                                Info6 = reader.GetString(6),
+                                Info7 = reader.GetString(7)
+
+                            });
+
                         }
-                        else
+                        reader.Close();
+
+                    }
+
+                    bool logined = false;
+                    foreach (var employee in lsAllEmployees)
+                    {
+                        if (employee.Info1 == tbUserName.Text)
                         {
-                            MessageBox.Show("Username or Password is wrong.");
+                            if (employee.Info2 == tbPassword.Password)
+                            {
+                                logined = true;
+                                FrmEmployees frmEmployees = new FrmEmployees(employee);
+                                frmEmployees.Show();
+                                this.Close();
+                            }
                         }
+                    }
+
+                    if (logined)
+                    {
+
                     }
                     else
                     {
-                        MessageBox.Show("Username or Password is wrong.");
-
-                    }
-                }
-
-                if ((bool)rbEmployee.IsChecked)
-                {
-
-                    List<lsAllEmployeesItem> lsAllEmployees = new List<lsAllEmployeesItem>();
-                    SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-
-                    using (connection)
-                    {
-                        SqlCommand command1 = new SqlCommand(
-                            "SELECT * FROM tblEmployees;",
-                            connection);
-
-                        connection.Open();
-
-                        SqlDataReader reader = command1.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                lsAllEmployees.Add(new lsAllEmployeesItem
-                                {
-                                    Info0 = reader.GetInt32(0),
-                                    Info1 = reader.GetString(1),
-                                    Info2 = reader.GetString(2),
-                                    Info3 = reader.GetString(3),
-                                    Info4 = reader.GetString(4),
-                                    //Info5 = reader.GetString(5),
-                                    Info6 = reader.GetString(6),
-                                    Info7 = reader.GetString(7)
-
-                                });
-
-                            }
-                            reader.Close();
-
-                        }
-
-                        bool logined = false;
-                        foreach (var employee in lsAllEmployees)
-                        {
-                            if (employee.Info1 == tbUserName.Text)
-                            {
-                                if (employee.Info2 == tbPassword.Password)
-                                {
-                                    logined = true;
-                                    FrmEmployees frmEmployees = new FrmEmployees(employee);
-                                    frmEmployees.Show();
-                                    this.Close();
-                                }
-                            }
-                        }
-
-                        if (logined)
-                        {
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Username or Password is wrong.");
-
-                        }
-
-
+                        //text box = userpass is wrong;
                     }
 
 
                 }
 
-                if ((bool)rbMember.IsChecked)
-                {
 
-                    List<lsAllMembersItem> lsAllmembers = new List<lsAllMembersItem>();
-                    SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-
-                    using (connection)
-                    {
-                        SqlCommand command1 = new SqlCommand(
-                            "SELECT * FROM tblMembers;",
-                            connection);
-
-                        connection.Open();
-
-                        SqlDataReader reader = command1.ExecuteReader();
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                lsAllmembers.Add(new lsAllMembersItem
-                                {
-                                    Info0 = reader.GetInt32(0),
-                                    Info1 = reader.GetString(1),
-                                    Info2 = reader.GetString(2),
-
-                                });
-
-                            }
-                            reader.Close();
-
-                        }
-
-                        bool logined = false;
-                        foreach (var member in lsAllmembers)
-                        {
-                            if (member.Info1 == tbUserName.Text)
-                            {
-                                if (member.Info2 == tbPassword.Password)
-                                {
-                                    logined = true;
-                                    FrmMembers frmMembers = new FrmMembers(member.Info1);
-                                    frmMembers.Show();
-                                    this.Close();
-                                }
-                            }
-                        }
-
-                        if (logined)
-                        {
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Username or Password is wrong.");
-
-                        }
-
-
-                    }
-                }
             }
-            catch (Exception exception)
+
+            if ((bool)rbMember.IsChecked)
             {
-                MessageBox.Show(exception.Message);
+
+                List<lsAllMembersItem> lsAllmembers = new List<lsAllMembersItem>();
+                SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+
+                using (connection)
+                {
+                    SqlCommand command1 = new SqlCommand(
+                        "SELECT * FROM tblMembers;",
+                        connection);
+
+                    connection.Open();
+
+                    SqlDataReader reader = command1.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            lsAllmembers.Add(new lsAllMembersItem
+                            {
+                                Info0 = reader.GetInt32(0),
+                                Info1 = reader.GetString(1),
+                                Info2 = reader.GetString(2),
+
+                            });
+
+                        }
+                        reader.Close();
+
+                    }
+
+                    bool logined = false;
+                    foreach (var member in lsAllmembers)
+                    {
+                        if (member.Info1 == tbUserName.Text)
+                        {
+                            if (member.Info2 == tbPassword.Password)
+                            {
+                                logined = true;
+                                FrmMembers frmMembers = new FrmMembers(member.Info1);
+                                frmMembers.Show();
+                                this.Close();
+                            }
+                        }
+                    }
+
+                    if (logined)
+                    {
+
+                    }
+                    else
+                    {
+                        //text box = user or pass is wrong;
+                    }
+
+
+                }
             }
-           
         }
+
     }
 }
-

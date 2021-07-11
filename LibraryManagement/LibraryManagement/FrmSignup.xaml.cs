@@ -43,7 +43,8 @@ namespace LibraryManagement
 
         private void btnSetPic_Click(object sender, RoutedEventArgs e)
         {
-            imageBytes = readImage();
+            imageBytes = Utils.ReadImage();
+            updateProfilePic();
         }
 
         public void AddMemberToDB(Member member)
@@ -102,33 +103,6 @@ namespace LibraryManagement
             }
         }
 
-        public byte[] readImage()
-        {
-            string path;
-            OpenFileDialog fileDialog = new OpenFileDialog
-            {
-                InitialDirectory = @"C:\",
-                Title = "Select Image",
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "image |*.png",
-            };
-
-            if (fileDialog.ShowDialog() == true)
-            {
-                path = fileDialog.FileName;
-                FileStream imgFile = new FileStream(path, FileMode.Open, FileAccess.Read);
-                byte[] imgBytes = new byte[imgFile.Length];
-                imgFile.Read(imgBytes, 0, imgBytes.Length);
-                imgFile.Close();
-                return imgBytes;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         private void edt_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender.GetHashCode()==((TextBox)edtPhoneNum.Template.FindName("edt", edtPhoneNum)).GetHashCode())
@@ -138,7 +112,14 @@ namespace LibraryManagement
             }
         }
 
-
+        private void updateProfilePic()
+        {
+            Image imgProfile = (Image)btnProfile.Template.FindName("imgProfile", btnProfile);
+            if (imgProfile != null && imageBytes!=null)
+            {
+                imgProfile.Source = Utils.BytesToImage(imageBytes);
+            }
+        }
     }
 
 }

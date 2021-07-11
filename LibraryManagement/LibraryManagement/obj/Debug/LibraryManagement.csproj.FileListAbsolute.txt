@@ -24,3 +24,11 @@ C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMemb
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMembers.baml
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAdmin.g.cs
 C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAdmin.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmPayment.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmPayment.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAddBook.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAddEmployee.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAddBook.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmAddEmployee.baml
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMemberInfo.g.cs
+C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\obj\Debug\FrmMemberInfo.baml
