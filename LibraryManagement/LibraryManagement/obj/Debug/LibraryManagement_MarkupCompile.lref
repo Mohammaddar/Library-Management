@@ -1,9 +1,12 @@
 ﻿
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\App.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\FrmAdmin.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\FrmEmployees.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\FrmLogin.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\FrmMembers.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\FrmSignup.xaml;;
-FC:\Users\asus\source\repos\LibraryManagement\LibraryManagement\MainWindow.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\App.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmAddBook.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmAddEmployee.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmAdmin.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmEmployees.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmLogin.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmMemberInfo.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmMembers.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmPayment.xaml;;
+FC:\Users\asus\Desktop\Library-Management-main\LibraryManagement\LibraryManagement\FrmSignup.xaml;;
 

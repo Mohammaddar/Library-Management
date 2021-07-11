@@ -636,6 +636,31 @@
 
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
+            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#FFE4E3E5"
+                    BorderThickness="0.4"
+                    CornerRadius="14" />
+                <TextBox
+                    x:Name="edt"
+                    Margin="12,6,12,6"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    MaxLength="{TemplateBinding MaxLength}"
+                    Text="{TemplateBinding Text}" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <Grid>
@@ -1062,8 +1087,10 @@
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
                                                 VerticalContentAlignment="Center"
+                                                Background="#FFF5FD"
                                                 FontFamily="Fonts/#Titillium Web"
-                                                Template="{DynamicResource tmpEditableRoundedTextBox}"
+                                                IsEnabled="False"
+                                                Template="{StaticResource tmpRoundedTextBox}"
                                                 Text="Marvin Robson" />
                                         </StackPanel>
                                         <StackPanel Grid.Row="2" Orientation="Vertical">

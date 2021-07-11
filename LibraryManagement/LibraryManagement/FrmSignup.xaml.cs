@@ -22,7 +22,6 @@ namespace LibraryManagement
     /// </summary>
     public partial class FrmSignup : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         byte[] imageBytes = null;
         public FrmSignup()
         {
@@ -36,9 +35,26 @@ namespace LibraryManagement
             PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
             TextBox tbEmail = (TextBox)edtEmail.Template.FindName("edt", edtEmail);
             TextBox tbPhoneNum = (TextBox)edtPhoneNum.Template.FindName("edt", edtPhoneNum);
+            if (!RegexUtils.checkName(tbUserName.Text))
+            {
+                MessageBox.Show("User Name is not valid");
+                return;
+            }else if (!RegexUtils.checkPassword(tbPassword.Password))
+            {
+                MessageBox.Show("Password is not valid");
+                return;
+            }else if (!RegexUtils.checkMail(tbEmail.Text))
+            {
+                MessageBox.Show("Email is not valid");
+                return;
+            }else if (!RegexUtils.checkPhoneNumber(tbPhoneNum.Text))
+            {
+                MessageBox.Show("Phone Number is not valid");
+                return;
+            }
             string today = DateTime.Now.Year + "/" + DateTime.Now.Month + "/" + DateTime.Now.Day;
             Member member = new Member(tbUserName.Text, tbPassword.Password, tbEmail.Text, tbPhoneNum.Text, imageBytes, today, today, "0",0);
-            AddMemberToDB(member);
+            new FrmPayment(this,50,"memberSignUp",member).Show();
         }
 
         private void btnSetPic_Click(object sender, RoutedEventArgs e)
@@ -64,7 +80,7 @@ namespace LibraryManagement
             }
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 SqlCommand command = new SqlCommand(qry, con);
                 new SqlParameter("@name", member.name);
                 command.Parameters.Add(new SqlParameter("@name", member.name));
@@ -82,6 +98,9 @@ namespace LibraryManagement
                 con.Open();
                 command.ExecuteNonQuery();
                 con.Close();
+                FrmMembers frmMembers = new FrmMembers(member.name);
+                frmMembers.Show();
+                this.Close();
             }
             catch (SqlException ex)
             {
@@ -119,6 +138,12 @@ namespace LibraryManagement
             {
                 imgProfile.Source = Utils.BytesToImage(imageBytes);
             }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            new FrmLogin().Show();
+            this.Close();
         }
     }
 

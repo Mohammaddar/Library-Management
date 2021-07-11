@@ -372,6 +372,31 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedTextBox2" TargetType="TextBox">
+            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <Border
+                    x:Name="txtBoxBorder"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="#FFE4E3E5"
+                    BorderThickness="0.4"
+                    CornerRadius="14" />
+                <TextBox
+                    x:Name="edt"
+                    Margin="12,6,12,6"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    MaxLength="{TemplateBinding MaxLength}"
+                    Text="{TemplateBinding Text}" />
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFEAF1F6" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
 
     <Grid>
@@ -563,30 +588,73 @@
                                 Template="{StaticResource tmpListBoxEmployees}" />
                         </Border>
                         <StackPanel Orientation="Horizontal">
+                            <Grid Margin="0,-5,0,0" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Border
+                                    Grid.Row="0"
+                                    Width="200"
+                                    Height="50"
+                                    Margin="40,10,10,30"
+                                    Padding="0,3,0,3"
+                                    VerticalAlignment="Center"
+                                    BorderBrush="#4C005A8D"
+                                    BorderThickness="0.2"
+                                    CornerRadius="12">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                            <GradientStop Offset="0.9" Color="White" />
+                                            <GradientStop Offset="1" Color="#FFF1F5FD" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="6"
+                                            Direction="310"
+                                            Opacity="20"
+                                            Color="#4CECECF0" />
+                                    </Border.Effect>
+                                    <TextBox
+                                        Name="edtPass"
+                                        Width="180"
+                                        Height="40"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        VerticalContentAlignment="Center"
+                                        Background="#FFF5FD"
+                                        FontFamily="Fonts/#Titillium Web"
+                                        Template="{DynamicResource tmpRoundedTextBox2}"
+                                        Text="Password..." />
+                                </Border>
+                                <Button
+                                    Name="btnPaySalaries"
+                                    Grid.Column="1"
+                                    Width="180"
+                                    Height="50"
+                                    Margin="10,-20,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="btnPaySalaries_Click"
+                                    Content="Pay Salaries"
+                                    FontSize="15"
+                                    FontWeight="Bold"
+                                    Template="{DynamicResource tmpElevatedButton}" />
+                            </Grid>
                             <Button
                                 Name="btnAddEmployee"
-                                Width="150"
+                                Width="180"
                                 Height="50"
-                                Margin="40,0,0,30"
+                                Margin="20,5,0,30"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Stretch"
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Click="btnAddEmployee_Click"
                                 Content="Add Employee"
-                                FontSize="15"
-                                FontWeight="Bold"
-                                Template="{DynamicResource tmpElevatedButton}" />
-                            <Button
-                                Name="btnPaySalaries"
-                                Width="150"
-                                Height="50"
-                                Margin="20,0,0,30"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Stretch"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Content="Pay Salaries"
                                 FontSize="15"
                                 FontWeight="Bold"
                                 Template="{DynamicResource tmpElevatedButton}" />

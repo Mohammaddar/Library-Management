@@ -20,13 +20,14 @@
                 CornerRadius="16">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="1.5*" />
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
                         Grid.Column="0"
-                        Margin="10,0,0,0"
+                        Width="150"
+                        Margin="10,0,-10,0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="Transparent"
@@ -38,6 +39,7 @@
                         Grid.Column="1"
                         Width="24"
                         Height="24"
+                        Margin="-20,0,0,0"
                         Source="Images/login.png" />
                 </Grid>
             </Border>
@@ -97,6 +99,30 @@
 
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <ControlTemplate x:Key="tmpBackButton" TargetType="Button">
+            <Border
+                x:Name="border"
+                Padding="10,6,10,6"
+                Background="Transparent"
+                BorderThickness="0"
+                CornerRadius="16">
+                <TextBlock
+                    x:Name="btnBack"
+                    Grid.Column="1"
+                    Canvas.Left="40"
+                    Canvas.Top="40"
+                    Background="Transparent"
+                    FontFamily="Fonts/#Titillium Web"
+                    Foreground="White"
+                    Text="Back To Login Page" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="border" Property="Background" Value="#198C8F9A" />
+                </Trigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
             <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                 <Border
@@ -112,7 +138,8 @@
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
                     Background="Transparent"
-                    BorderThickness="0" TextChanged="edt_TextChanged" />
+                    BorderThickness="0"
+                    TextChanged="edt_TextChanged" />
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
@@ -133,6 +160,12 @@
             </Image.Clip>
         </Image>
 
+        <Button
+            x:Name="btnBack"
+            Canvas.Left="40"
+            Canvas.Top="40"
+            Click="btnBack_Click"
+            Template="{StaticResource tmpBackButton}" />
         <Label
             Grid.Row="0"
             Canvas.Left="40"
@@ -158,7 +191,7 @@
             Canvas.Right="50"
             Canvas.Bottom="60"
             Width="440"
-            Height="325"
+            Height="380"
             Padding="10,0,10,5"
             Panel.ZIndex="1"
             BorderBrush="#4C116790"
@@ -179,11 +212,23 @@
             </Border.Effect>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*" />
                     <RowDefinition Height="2.4*" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                <Grid>
+                <Label
+                    Grid.Row="0"
+                    Canvas.Left="42"
+                    Canvas.Top="230"
+                    Margin="0,10,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Sign Up As Member"
+                    FontFamily="Fonts/#Titillium Web"
+                    FontSize="20"
+                    Foreground="#FF022E57" />
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1.5*" />
@@ -251,11 +296,11 @@
                                 VerticalContentAlignment="Center"
                                 Background="#FFF6F5F7"
                                 FontFamily="Fonts/#Titillium Web"
-                                Template="{StaticResource tmpRoundedTextBox}"/>
+                                Template="{StaticResource tmpRoundedTextBox}" />
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <StackPanel Grid.Row="1" Orientation="Vertical">
+                <StackPanel Grid.Row="2" Orientation="Vertical">
                     <TextBlock
                         Margin="30,0,0,2"
                         HorizontalAlignment="Left"
@@ -277,11 +322,10 @@
                         FontFamily="Fonts/#Titillium Web"
                         Template="{StaticResource tmpRoundedTextBox}" />
                 </StackPanel>
-
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.3*" />
                         <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.2*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel
                         Grid.Column="0"
@@ -298,9 +342,9 @@
                             Text="Password :" />
                         <PasswordBox
                             Name="edtPassword"
-                            Width="210"
+                            Width="160"
                             Height="40"
-                            Margin="14.8,0,0,0"
+                            Margin="11.2,0,0,0"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             VerticalContentAlignment="Center"
@@ -311,19 +355,19 @@
                     <Button
                         Name="btnLogin"
                         Grid.Column="1"
-                        Width="150"
+                        Width="200"
                         Height="40"
-                        Margin="10,0,20,0"
+                        Margin="-12.8,0,0,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="#053742"
                         BorderBrush="#005A8D"
-                        Content="Sign Up"
+                        Click="btnSignup_Click"
+                        Content="Proceed to payment"
                         FontFamily="Fonts/#Titillium Web"
-                        FontSize="16"
+                        FontSize="14"
                         Foreground="White"
-                        Template="{DynamicResource tmpRoundedIconButton}"
-                        Click="btnSignup_Click"/>
+                        Template="{DynamicResource tmpRoundedIconButton}" />
                 </Grid>
             </Grid>
         </Border>

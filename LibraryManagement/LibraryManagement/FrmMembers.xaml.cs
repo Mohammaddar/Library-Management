@@ -18,28 +18,20 @@ namespace LibraryManagement
 {
     public partial class FrmMembers : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         const double MONTHLY_MEMBERSHIP_FEE = 50;
         string memberName = "hamid";
         Member member;
         List<fourParameterLsItem> lsAllBooksItems;
         List<fourParameterLsItem> lsMyBooksItems;
 
-        public FrmMembers()
-        {
-            InitializeComponent();
-            updateTabAllBooks();
-            updateTabMyBooks();
-            getMemberInfoFromDB();
-            lblMemberName.Content = member.name;
-        }
         public FrmMembers(string memberName)
         {
+            this.memberName = memberName;
             InitializeComponent();
+            getMemberInfoFromDB();
             updateTabAllBooks();
             updateTabMyBooks();
-            this.memberName = memberName;
-            lblMemberName.Content = member.name;
+            lblMemberName.Content = memberName;
         }
 
 
@@ -82,7 +74,7 @@ namespace LibraryManagement
         {
             if (int.Parse(member.balance) >= MONTHLY_MEMBERSHIP_FEE)
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 con.Open();
                 string qry = "update tblMembers set lastPayDate=@lastPayDate ,balance=balance-@amount,spareDays=@remainingDays where name=@memberName";
                 SqlCommand command = new SqlCommand(qry, con);
@@ -123,31 +115,42 @@ namespace LibraryManagement
         }
         private void btnApplyChanges_Click(object sender, RoutedEventArgs e)
         {
-            TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edtEditableRoundedTextBox", edtUserName);
             TextBox tbEmail = (TextBox)edtEmail.Template.FindName("edtEditableRoundedTextBox", edtEmail);
             TextBox tbPhoneNumber = (TextBox)edtPhoneNumber.Template.FindName("edtEditableRoundedTextBox", edtPhoneNumber);
             PasswordBox pbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
-            if (tbUserName.Text == "")
-            {
-                MessageBox.Show("User Name can not be empty");
-                return;
-            }
             if (tbEmail.Text == "")
             {
                 MessageBox.Show("Email can not be empty");
                 return;
             }
+            else
             if (tbPhoneNumber.Text == "")
             {
                 MessageBox.Show("Phone Number can not be empty");
                 return;
             }
+            else
             if (pbPassword.Password == "")
             {
                 MessageBox.Show("Password can not be empty");
                 return;
             }
-            updateMemberInDB(tbUserName.Text, tbEmail.Text, tbPhoneNumber.Text, pbPassword.Password);
+            else if (!RegexUtils.checkPassword(pbPassword.Password))
+            {
+                MessageBox.Show("Password is not valid");
+                return;
+            }
+            else if (!RegexUtils.checkMail(tbEmail.Text))
+            {
+                MessageBox.Show("Email is not valid");
+                return;
+            }
+            else if (!RegexUtils.checkPhoneNumber(tbPhoneNumber.Text))
+            {
+                MessageBox.Show("Phone Number is not valid");
+                return;
+            }
+            updateMemberInDB(member.name, tbEmail.Text, tbPhoneNumber.Text, pbPassword.Password);
         }
         private void btnSetPic_Click(object sender, RoutedEventArgs e)
         {
@@ -278,8 +281,9 @@ namespace LibraryManagement
         }
         private void updateProfilePic()
         {
+            btnProfile.ApplyTemplate();
             Image imgProfile = (Image)btnProfile.Template.FindName("imgProfile", btnProfile);
-            if (imgProfile != null && member.picture!=null)
+            if (imgProfile != null && member.picture != null)
             {
                 imgProfile.Source = Utils.BytesToImage(member.picture);
             }
@@ -299,7 +303,7 @@ namespace LibraryManagement
             }
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 SqlCommand command = new SqlCommand(qry, con);
                 command.Parameters.Add(new SqlParameter("@newName", newName));
                 command.Parameters.Add(new SqlParameter("@newPass", newPass));
@@ -314,6 +318,7 @@ namespace LibraryManagement
                 command.ExecuteNonQuery();
                 con.Close();
                 ///update Member
+                memberName = newName;
                 member.name = newName;
                 member.email = newEmail;
                 member.phoneNumber = newPhone;
@@ -325,7 +330,6 @@ namespace LibraryManagement
             }
             catch (SqlException ex)
             {
-                MessageBox.Show(ex.Message);
                 foreach (var er in ex.Errors)
                 {
                     if (er.ToString().Contains("IX_MemName"))
@@ -349,7 +353,7 @@ namespace LibraryManagement
         {
             List<fourParameterLsItem> books = new List<fourParameterLsItem>();
 
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
             string qry = "select * from tblBooks";
             SqlCommand command = new SqlCommand(qry, con);
@@ -373,7 +377,7 @@ namespace LibraryManagement
         {
             List<fourParameterLsItem> myBooks = new List<fourParameterLsItem>();
 
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
             string qry = "select tblBooks.name,tblBooks.writer,tblBorrowings.borrowingDate,tblBorrowings.returnDate from " +
                          "tblBooks inner join tblBorrowings on tblBooks.name = tblBorrowings.bookName where tblBorrowings.memberName = @memberName";
@@ -397,7 +401,7 @@ namespace LibraryManagement
         }
         private void getMemberInfoFromDB()
         {
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
             string qry = "select * from tblMembers where name=@memberName";
             SqlCommand command = new SqlCommand(qry, con);
@@ -413,7 +417,7 @@ namespace LibraryManagement
 
         private void addBorrowingToDB(string bookName)
         {
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
 
             string qryAddBorrowing = "insert into tblBorrowings values(@bookName,@memberName,@borrowingDate,@returnDate)";
             SqlCommand commandAddBorrowing = new SqlCommand(qryAddBorrowing, con);
@@ -442,7 +446,7 @@ namespace LibraryManagement
         }
         private void returnBook(string bookName)
         {
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
 
             string qryRemoveBorroing = "delete from tblBorrowings where bookName=@bookName and memberName=@memberName";
             SqlCommand commandRemoveBorroing = new SqlCommand(qryRemoveBorroing, con);
@@ -469,7 +473,7 @@ namespace LibraryManagement
         }
         private void payPenalty(int amount)
         {
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
 
             string qryDecreaseBlance = "update tblMembers set balance = balance-@amount where name=@memberName;";
             SqlCommand commandDecreaseBalance = new SqlCommand(qryDecreaseBlance, con);
@@ -489,7 +493,7 @@ namespace LibraryManagement
         private bool hasPermissionToBorrow()
         {
             ///////
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
             string qry = "select COUNT(*) from tblBorrowings where memberName=@memberName";
             SqlCommand command = new SqlCommand(qry, con);
@@ -544,19 +548,37 @@ namespace LibraryManagement
             {
                 if ((bool)cbBookName.IsChecked && (bool)cbBookWriter.IsChecked)
                 {
-                    lsAllBooksItems = lsAllBooksItems.Where(i => i.Info1.Contains(phrase) || i.Info2.Contains(phrase)).ToList();
+                    List<fourParameterLsItem> ls = lsAllBooksItems.Where(i => i.Info1.Contains(phrase) || i.Info2.Contains(phrase)).ToList();
+                    if (ls.Count == 0)
+                    {
+                        MessageBox.Show("Nothing to show");
+                        return;
+                    }
+                    lsAllBooksItems = ls;
                 }
                 else if ((bool)cbBookName.IsChecked)
                 {
-                    lsAllBooksItems = lsAllBooksItems.Where(i => i.Info1.Contains(phrase)).ToList();
+                    List<fourParameterLsItem> ls = lsAllBooksItems.Where(i => i.Info1.Contains(phrase)).ToList();
+                    if (ls.Count == 0)
+                    {
+                        MessageBox.Show("Nothing to show");
+                        return;
+                    }
+                    lsAllBooksItems = ls;
                 }
                 else if ((bool)cbBookWriter.IsChecked)
                 {
-                    lsAllBooksItems = lsAllBooksItems.Where(i => i.Info2.Contains(phrase)).ToList();
+                    List<fourParameterLsItem> ls = lsAllBooksItems.Where(i => i.Info2.Contains(phrase)).ToList();
+                    if (ls.Count == 0)
+                    {
+                        MessageBox.Show("Nothing to show");
+                        return;
+                    }
+                    lsAllBooksItems = ls;
                 }
                 else
                 {
-                    lsAllBooksItems.Clear();
+                    MessageBox.Show("check at least one of the check boxes");
                 }
                 lsAllBooks.ItemsSource = lsAllBooksItems;
             }

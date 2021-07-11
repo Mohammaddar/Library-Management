@@ -13,43 +13,61 @@ namespace LibraryManagement
     {
         public static byte[] ReadImage()
         {
-            string path;
-            OpenFileDialog fileDialog = new OpenFileDialog
+            try
             {
-                InitialDirectory = @"C:\",
-                Title = "Select Image",
-                CheckFileExists = true,
-                CheckPathExists = true,
-                Filter = "image |*.png",
-            };
+                string path;
+                OpenFileDialog fileDialog = new OpenFileDialog
+                {
+                    InitialDirectory = @"C:\",
+                    Title = "Select Image",
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "png |*.png|jpg |*.jpg|jpeg |*.jpeg",
+                };
 
-            if (fileDialog.ShowDialog() == true)
-            {
-                path = fileDialog.FileName;
-                FileStream imgFile = new FileStream(path, FileMode.Open, FileAccess.Read);
-                byte[] imgBytes = new byte[imgFile.Length];
-                imgFile.Read(imgBytes, 0, imgBytes.Length);
-                imgFile.Close();
-                return imgBytes;
+                if (fileDialog.ShowDialog() == true)
+                {
+                    path = fileDialog.FileName;
+                    FileStream imgFile = new FileStream(path, FileMode.Open, FileAccess.Read);
+                    byte[] imgBytes = new byte[imgFile.Length];
+                    imgFile.Read(imgBytes, 0, imgBytes.Length);
+                    imgFile.Close();
+                    return imgBytes;
+                }
+                else
+                {
+                    return null;
+                }
             }
-            else
+            catch (Exception)
             {
                 return null;
             }
         }
-
+        public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         public static BitmapImage BytesToImage(byte[] array)
         {
-            if (array == null)
+            try
+            {
+                if (array == null)
+                    return null;
+                MemoryStream ms = new System.IO.MemoryStream(array);
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
+            catch (Exception)
+            {
                 return null;
-            MemoryStream ms = new System.IO.MemoryStream(array);
-            BitmapImage image = new BitmapImage();
-            image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.StreamSource = ms;
-            image.EndInit();
-            return image;
+            }
         }
 
+        public static string getConnectionString()
+        {
+            return CONNECTION_STRING;
+        }
     }
 }

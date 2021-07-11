@@ -20,7 +20,6 @@ namespace LibraryManagement
     /// </summary>
     public partial class FrmMemberInfo : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         string memberName;
 
         public FrmMemberInfo(string memberName)
@@ -32,7 +31,7 @@ namespace LibraryManagement
 
         private void displayMemberInfo()
         {
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
             string qry = "select * from tblMembers where name=@name";
             SqlCommand command = new SqlCommand(qry, con);
@@ -50,6 +49,7 @@ namespace LibraryManagement
             con.Close();
             if (imgBytes != null)
             {
+                btnProfile.ApplyTemplate();
                 Image imgProfile = (Image)btnProfile.Template.FindName("imgProfile", btnProfile);
                 imgProfile.Source = Utils.BytesToImage(imgBytes);
             }

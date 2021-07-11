@@ -22,8 +22,6 @@ namespace LibraryManagement
     public partial class FrmEmployees : Window
     {
         byte[] imageBytes = null;
-
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         private lsAllEmployeesItem employee;
         List<lsAllMembersItem> allMembers;
         public FrmEmployees(lsAllEmployeesItem Employee)
@@ -72,7 +70,7 @@ namespace LibraryManagement
             List<lsAllBorrowingsItem> borrowings = new List<lsAllBorrowingsItem>();
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 con.Open();
                 string qry = "select * from tblBorrowings";
                 SqlCommand command = new SqlCommand(qry, con);
@@ -104,7 +102,7 @@ namespace LibraryManagement
             List<lsAllBooksItem> books = new List<lsAllBooksItem>();
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 con.Open();
                 string qry = "select * from tblBooks";
                 SqlCommand command = new SqlCommand(qry, con);
@@ -135,7 +133,7 @@ namespace LibraryManagement
             List<lsAllBooksItem> books = new List<lsAllBooksItem>();
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 con.Open();
                 string qry = "select * from tblBooks where count>0";
                 SqlCommand command = new SqlCommand(qry, con);
@@ -166,7 +164,7 @@ namespace LibraryManagement
             List<lsAllMembersItem> members = new List<lsAllMembersItem>();
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 con.Open();
                 string qry = "select * from tblMembers";
                 SqlCommand command = new SqlCommand(qry, con);
@@ -293,32 +291,42 @@ namespace LibraryManagement
 
         private void btnApplyChanges_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("apply");
-            TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edtEditableRoundedTextBox", edtUserName);
             TextBox tbEmail = (TextBox)edtEmail.Template.FindName("edtEditableRoundedTextBox", edtEmail);
             TextBox tbPhoneNumber = (TextBox)edtPhoneNumber.Template.FindName("edtEditableRoundedTextBox", edtPhoneNumber);
             PasswordBox pbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
-            if (tbUserName.Text == "")
-            {
-                MessageBox.Show("User Name can not be empty");
-                return;
-            }
             if (tbEmail.Text == "")
             {
                 MessageBox.Show("Email can not be empty");
                 return;
             }
+            else
             if (tbPhoneNumber.Text == "")
             {
                 MessageBox.Show("Phone Number can not be empty");
                 return;
             }
+            else
             if (pbPassword.Password == "")
             {
                 MessageBox.Show("Password can not be empty");
                 return;
             }
-            updateEmployeeInDB(tbUserName.Text, tbEmail.Text, tbPhoneNumber.Text, pbPassword.Password);
+            else if (!RegexUtils.checkPassword(pbPassword.Password))
+            {
+                MessageBox.Show("Password is not valid");
+                return;
+            }
+            else if (!RegexUtils.checkMail(tbEmail.Text))
+            {
+                MessageBox.Show("Email is not valid");
+                return;
+            }
+            else if (!RegexUtils.checkPhoneNumber(tbPhoneNumber.Text))
+            {
+                MessageBox.Show("Phone Number is not valid");
+                return;
+            }
+            updateEmployeeInDB(employee.Info1, tbEmail.Text, tbPhoneNumber.Text, pbPassword.Password);
         }
         private void btnListMembersItemMore_Click(object sender, RoutedEventArgs e)
         {
@@ -344,6 +352,7 @@ namespace LibraryManagement
 
         private void updateProfilePic()
         {
+            btnProfile.ApplyTemplate();
             Image imgProfile = (Image)btnProfile.Template.FindName("imgProfile", btnProfile);
             if (imgProfile != null && employee.Info5 != null)
             {
@@ -367,7 +376,7 @@ namespace LibraryManagement
             }
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 SqlCommand command = new SqlCommand(qry, con);
                 command.Parameters.Add(new SqlParameter("@newName", newName));
                 command.Parameters.Add(new SqlParameter("@newPass", newPass));

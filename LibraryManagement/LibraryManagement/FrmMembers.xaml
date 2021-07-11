@@ -376,6 +376,7 @@
                     Background="Transparent"
                     BorderThickness="0"
                     MaxLength="{TemplateBinding MaxLength}"
+                    Text="{TemplateBinding Text}"
                     TextChanged="edt_TextChanged" />
             </Grid>
             <ControlTemplate.Triggers>
@@ -973,8 +974,7 @@
                                     VerticalContentAlignment="Center"
                                     Background="#FFF5FD"
                                     FontFamily="Fonts/#Titillium Web"
-                                    Template="{DynamicResource tmpRoundedTextBox}"
-                                    Text="Search..." />
+                                    Template="{DynamicResource tmpRoundedTextBox}" />
                             </Border>
                             <Button
                                 Name="btnIncreaseBalance"
@@ -1061,8 +1061,10 @@
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
                                                 VerticalContentAlignment="Center"
+                                                Background="#FFF5FD"
                                                 FontFamily="Fonts/#Titillium Web"
-                                                Template="{StaticResource tmpEditableRoundedTextBox}"
+                                                IsEnabled="False"
+                                                Template="{StaticResource tmpRoundedTextBox}"
                                                 Text="Marvin Robson" />
                                         </StackPanel>
                                         <StackPanel Grid.Row="2" Orientation="Vertical">

@@ -21,15 +21,14 @@ namespace LibraryManagement
     public partial class FrmAdmin : Window
     {
         List<lsAllMembersItem> employeeslist = new List<lsAllMembersItem>();
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
-
+        string balance = "";
         public FrmAdmin()
         {
             InitializeComponent();
             List<lsAllMembersItem> lsAllBooksItems = new List<lsAllMembersItem>();
             List<lsAllMembersItem> lsAllMembersItems = new List<lsAllMembersItem>();
-            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
-            string balance = "";
+            SqlConnection connection = new SqlConnection(Utils.getConnectionString());
+
             using (connection)
             {
                 SqlCommand command1 = new SqlCommand(
@@ -142,11 +141,15 @@ namespace LibraryManagement
 
         private void btnListEmployeesItemRemove_Click(object sender, RoutedEventArgs e)
         {
-            const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
-
             ListBox lsAllEmployees_inner = (ListBox)lsEmployees.Template.FindName("EmployeesListbox", lsEmployees);
+            if (lsAllEmployees_inner.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select an employee");
+                return;
+            }
+
             int removed_index = lsAllEmployees_inner.SelectedIndex;
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlConnection con = new SqlConnection(Utils.getConnectionString());
             con.Open();
 
             string qry = "DELETE FROM tblEmployees WHERE name='" + employeeslist[removed_index].Info1 + "'";
@@ -157,7 +160,7 @@ namespace LibraryManagement
             //set the table after remove
 
             List<lsAllMembersItem> lsAllMembersItems = new List<lsAllMembersItem>();
-            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(Utils.getConnectionString());
             using (connection)
             {
                 SqlCommand command1 = new SqlCommand(
@@ -217,7 +220,7 @@ namespace LibraryManagement
 
         public void updateTabWallet()
         {
-            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+            SqlConnection connection = new SqlConnection(Utils.getConnectionString());
             SqlCommand command3 = new SqlCommand(
                     "SELECT * FROM tblAdmins;",
                     connection);
@@ -245,13 +248,294 @@ namespace LibraryManagement
 
         private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
         {
-
+            new FrmAddEmployee(this).Show();
         }
 
         private void btnAddBook_Click(object sender, RoutedEventArgs e)
         {
-
+            new FrmAddBook(this).Show();
         }
+
+        private void btnPaySalaries_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox tbPass = (TextBox)edtPass.Template.FindName("edt", edtPass);
+            if (tbPass.Text == "")
+            {
+                MessageBox.Show("Please enter your password");
+                return;
+            }
+            else if (tbPass.Text != "AdminLib123")
+            {
+                MessageBox.Show("Password is not correct");
+                return;
+            }
+            try
+            {
+                int sumOfSalaries = 0;
+                List<lsAllEmployeesItem> employeess = new List<lsAllEmployeesItem>();
+                employeess = GetAllEmployeesfromdb();
+                SqlConnection connection2 = new SqlConnection(Utils.getConnectionString());
+                using (connection2)
+                {
+                    connection2.Open();
+                    SqlCommand command3 = new SqlCommand(
+                        "SELECT * FROM tblAdmins;",
+                        connection2);
+
+                    SqlDataReader reader = command3.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            balance = reader.GetString(3);
+                        }
+                        reader.Close();
+
+                    }
+                    else
+                    {
+                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                        reader.Close();
+                    }
+
+                }
+                foreach (var employee in employeess)
+                {
+                    sumOfSalaries += int.Parse(employee.Info6);
+                }
+
+                if (sumOfSalaries <= int.Parse(balance))
+                {
+                    foreach (var employee in employeess)
+                    {
+                        int temp = int.Parse(employee.Info6) + int.Parse(employee.Info7);
+
+                        SqlConnection con = new SqlConnection(Utils.getConnectionString());
+                        con.Open();
+
+                        string qry = "update tblEmployees set balance='" + temp.ToString() + "' where name='" +
+                                     employee.Info1 + "'";
+                        SqlCommand command = new SqlCommand(qry, con);
+                        command.ExecuteNonQuery();
+                        con.Close();
+                    }
+
+                    SqlConnection connection = new SqlConnection(Utils.getConnectionString());
+                    using (connection)
+                    {
+                        connection.Open();
+                        SqlCommand command3 = new SqlCommand(
+                            "SELECT * FROM tblAdmins;",
+                            connection);
+
+                        SqlDataReader reader = command3.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                balance = reader.GetString(3);
+                            }
+                            reader.Close();
+
+                        }
+                        else
+                        {
+                            //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                            reader.Close();
+                        }
+
+                    }
+                    SqlConnection connection1 = new SqlConnection(Utils.getConnectionString());
+
+                    connection1.Open();
+
+                    string query = "update tblAdmins set libraryBalance='" + (int.Parse(balance) - sumOfSalaries).ToString() + "' where name='" +
+                                "admin" + "'";
+                    SqlCommand cmd = new SqlCommand(query, connection1);
+                    cmd.ExecuteNonQuery();
+                    connection1.Close();
+                    MessageBox.Show("Salaries Successfully Payed.");
+                    SqlConnection connection4 = new SqlConnection(Utils.getConnectionString());
+                    using (connection4)
+                    {
+                        connection4.Open();
+                        SqlCommand command3 = new SqlCommand(
+                            "SELECT * FROM tblAdmins;",
+                            connection4);
+
+                        SqlDataReader reader = command3.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                balance = reader.GetString(3);
+                            }
+                            reader.Close();
+
+                        }
+                        else
+                        {
+                            //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                            reader.Close();
+                        }
+
+                    }
+                    lblLibraryBlalnce.Content = balance + "$";
+                }
+                else
+                {
+                    MessageBox.Show("Balance is not enough.");
+                }
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+        private List<lsAllEmployeesItem> GetAllEmployeesfromdb()
+        {
+
+            List<lsAllEmployeesItem> employees = new List<lsAllEmployeesItem>();
+            try
+            {
+                SqlConnection connection1 = new SqlConnection(Utils.getConnectionString());
+                using (connection1)
+                {
+                    SqlCommand command1 = new SqlCommand(
+                        "SELECT * FROM tblEmployees;",
+                        connection1);
+
+                    connection1.Open();
+
+                    SqlDataReader reader = command1.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            employees.Add(new lsAllEmployeesItem
+                            {
+                                Info0 = reader.GetInt32(0),
+                                Info1 = reader.GetString(1),
+                                Info2 = reader.GetString(2),
+                                Info3 = reader.GetString(3),
+                                Info4 = reader.GetString(4),
+                                Info6 = reader.GetString(6),
+                                Info7 = reader.GetString(7)
+
+                            });
+
+                        }
+
+                        reader.Close();
+                    }
+
+                    return employees;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
+            return employees;
+        }
+
+        public void updateFrmAdmin()
+        {
+            List<lsAllMembersItem> lsAllBooksItems = new List<lsAllMembersItem>();
+            List<lsAllMembersItem> lsAllMembersItems = new List<lsAllMembersItem>();
+            SqlConnection connection = new SqlConnection(Utils.getConnectionString());
+
+            using (connection)
+            {
+                SqlCommand command1 = new SqlCommand(
+                    "SELECT * FROM tblEmployees;",
+                    connection);
+                SqlCommand command2 = new SqlCommand(
+                    "SELECT * FROM tblBooks;",
+                    connection);
+                SqlCommand command3 = new SqlCommand(
+                    "SELECT * FROM tblAdmins;",
+                    connection);
+                connection.Open();
+
+                SqlDataReader reader = command1.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    int counter = 1;
+                    while (reader.Read())
+                    {
+                        lsAllMembersItems.Add(new lsAllMembersItem
+                        {
+                            Info0 = counter++,
+                            Info1 = reader.GetString(1),
+                            Info2 = reader.GetString(3),
+                            Info3 = reader.GetString(4),
+                            Info4 = reader.GetString(6)
+                        });
+
+                    }
+                    reader.Close();
+
+                }
+                else
+                {
+                    reader.Close();
+                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                }
+                SqlDataReader reader2 = command2.ExecuteReader();
+                if (reader2.HasRows)
+                {
+                    int counter = 1;
+                    while (reader2.Read())
+                    {
+                        lsAllBooksItems.Add(new lsAllMembersItem
+                        {
+                            Info0 = counter++,
+                            Info1 = reader2.GetString(1),
+                            Info2 = reader2.GetString(2),
+                            Info3 = reader2.GetString(3),
+                            Info4 = reader2.GetInt32(5) + ""
+                        });
+
+                    }
+                    reader2.Close();
+
+                }
+                else
+                {
+                    reader2.Close();
+                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                }
+                SqlDataReader reader3 = command3.ExecuteReader();
+                if (reader3.HasRows)
+                {
+                    while (reader3.Read())
+                    {
+                        balance = reader3.GetString(3);
+                    }
+                    reader3.Close();
+
+                }
+                else
+                {
+                    reader3.Close();
+                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                }
+
+
+            }
+
+            lsEmployees.ItemsSource = lsAllMembersItems;
+            lsBooks.ItemsSource = lsAllBooksItems;
+            lblLibraryBlalnce.Content = balance + "$";
+            employeeslist = lsAllMembersItems;
+        }
+
     }
 
     public class lsEmployeesItem

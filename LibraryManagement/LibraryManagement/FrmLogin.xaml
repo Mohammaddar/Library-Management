@@ -125,6 +125,7 @@
                     Foreground="White"
                     Text="Don't you have an acount?" />
                 <Button
+                    x:Name="btnSignUp"
                     Margin="2,0,0,28"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
@@ -133,7 +134,7 @@
                     FontSize="12"
                     FontStyle="Italic"
                     Foreground="#FFFCFDF6"
-                    Template="{StaticResource tmpBtnSignup}" />
+                    Template="{StaticResource tmpBtnSignup}" Click="btnSignUp_Click"/>
             </StackPanel>
         </Canvas>
 

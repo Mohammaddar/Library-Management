@@ -17,27 +17,37 @@ namespace LibraryManagement
 {
     public partial class FrmPayment : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
-        FrmAdmin frmAdmin; 
+        FrmAdmin frmAdmin;
         FrmMembers frmMembers;
+        FrmSignup frmSignup;
         int amount;
-        string userType;
+        string usageType;
         string memberName;
-        public FrmPayment(FrmAdmin frmAdmin,int amount,string userType)
+        Member member;
+        public FrmPayment(FrmAdmin frmAdmin, int amount, string usageType)
         {
             InitializeComponent();
             this.frmAdmin = frmAdmin;
             this.amount = amount;
-            this.userType = userType;
+            this.usageType = usageType;
             lblFee.Content = "Fee : " + amount;
         }
-        public FrmPayment(FrmMembers frmMembers,int amount, string userType,string memberName)
+        public FrmPayment(FrmMembers frmMembers, int amount, string usageType, string memberName)
         {
             InitializeComponent();
             this.frmMembers = frmMembers;
             this.amount = amount;
-            this.userType = userType;
+            this.usageType = usageType;
             this.memberName = memberName;
+            lblFee.Content = "Fee : " + amount;
+        }
+        public FrmPayment(FrmSignup frmSignup, int amount, string usageType, Member member)
+        {
+            InitializeComponent();
+            this.frmSignup = frmSignup;
+            this.amount = amount;
+            this.usageType = usageType;
+            this.member = member;
             lblFee.Content = "Fee : " + amount;
         }
 
@@ -83,14 +93,19 @@ namespace LibraryManagement
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if (true)
+            if (checkCardInfo())
             {
-                if (userType == "admin")
+                if (usageType == "admin")
                 {
                     UpdateLibraryBalanceInDB();
-                }else if (userType == "member")
+                }
+                else if (usageType == "member")
                 {
                     UpdateMemberBalanceInDB();
+                }
+                else if (usageType == "memberSignUp")
+                {
+                    frmSignup.AddMemberToDB(member);
                 }
                 this.Close();
             }
@@ -102,7 +117,7 @@ namespace LibraryManagement
             qry = "update tblAdmins set libraryBalance = (select libraryBalance from tblAdmins where id=1)+@amount WHERE id=1;";
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 SqlCommand command = new SqlCommand(qry, con);
                 command.Parameters.Add(new SqlParameter("@amount", amount));
                 con.Open();
@@ -121,7 +136,7 @@ namespace LibraryManagement
             qry = "update tblMembers set balance = balance+@amount where name=@memberName;";
             try
             {
-                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                SqlConnection con = new SqlConnection(Utils.getConnectionString());
                 SqlCommand command = new SqlCommand(qry, con);
                 command.Parameters.Add(new SqlParameter("@amount", amount));
                 command.Parameters.Add(new SqlParameter("@memberName", memberName));
@@ -145,18 +160,26 @@ namespace LibraryManagement
                              ((TextBox)edtCardNumber2.Template.FindName("edt", edtCardNumber2)).Text +
                              ((TextBox)edtCardNumber3.Template.FindName("edt", edtCardNumber3)).Text +
                              ((TextBox)edtCardNumber4.Template.FindName("edt", edtCardNumber4)).Text;
+            string expireYear = ((TextBox)edtExpDate1.Template.FindName("edt", edtExpDate1)).Text;
+            string expireDay = ((TextBox)edtExpDate2.Template.FindName("edt", edtExpDate2)).Text;
+            string cvv = ((TextBox)edtCVV.Template.FindName("edt", edtCVV)).Text;
+            if (cardNum == "" || expireYear == "" || expireDay == "" || cvv == "")
+            {
+                MessageBox.Show("Please fill all boxes");
+                return false;
+            }
             if (!RegexUtils.checkCardNumber(long.Parse(cardNum)))
             {
                 MessageBox.Show("Please Insert a valid Card Number");
                 return false;
             }
-            if (!RegexUtils.checkExpiration(int.Parse(((TextBox)edtExpDate1.Template.FindName("edt", edtExpDate1)).Text),
-                                           int.Parse(((TextBox)edtExpDate2.Template.FindName("edt", edtExpDate2)).Text)))
+            if (!RegexUtils.checkExpiration(int.Parse(expireYear)+2000,
+                                           int.Parse((expireDay))))
             {
                 MessageBox.Show("Please Insert a valid Expiration Date");
                 return false;
             }
-            if (!RegexUtils.checkCvv(((TextBox)edtCVV.Template.FindName("edt", edtCVV)).Text))
+            if (!RegexUtils.checkCvv(cvv))
             {
                 MessageBox.Show("Please Insert a valid CVV");
                 return false;

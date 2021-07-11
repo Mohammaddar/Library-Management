@@ -20,7 +20,6 @@ namespace LibraryManagement
     /// </summary>
     public partial class FrmLogin : Window
     {
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         public FrmLogin()
         {
             InitializeComponent();
@@ -41,6 +40,14 @@ namespace LibraryManagement
                         frmAdmin.Show();
                         this.Close();
                     }
+                    else
+                    {
+                        MessageBox.Show("User Name or password is not correct");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("User Name or password is not correct");
                 }
             }
 
@@ -48,7 +55,7 @@ namespace LibraryManagement
             {
 
                 List<lsAllEmployeesItem> lsAllEmployees = new List<lsAllEmployeesItem>();
-                SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+                SqlConnection connection = new SqlConnection(Utils.getConnectionString());
 
                 using (connection)
                 {
@@ -102,7 +109,7 @@ namespace LibraryManagement
                     }
                     else
                     {
-                        //text box = userpass is wrong;
+                        MessageBox.Show("User Name or password is not correct");
                     }
 
 
@@ -115,7 +122,7 @@ namespace LibraryManagement
             {
 
                 List<lsAllMembersItem> lsAllmembers = new List<lsAllMembersItem>();
-                SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+                SqlConnection connection = new SqlConnection(Utils.getConnectionString());
 
                 using (connection)
                 {
@@ -164,7 +171,7 @@ namespace LibraryManagement
                     }
                     else
                     {
-                        //text box = user or pass is wrong;
+                        MessageBox.Show("User Name or password is not correct");
                     }
 
 
@@ -172,5 +179,10 @@ namespace LibraryManagement
             }
         }
 
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            //new FrmSignup().Show();
+            //this.Close();
+        }
     }
 }

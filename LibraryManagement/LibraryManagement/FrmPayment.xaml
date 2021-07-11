@@ -8,6 +8,7 @@
     Title="FrmPayment"
     Width="700"
     Height="355"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <ControlTemplate x:Key="tmpRoundedTextBox" TargetType="TextBox">
@@ -324,12 +325,12 @@
                     VerticalAlignment="Stretch"
                     Background="#053742"
                     BorderBrush="#005A8D"
+                    Click="btnPay_Click"
                     Content="Proceed"
                     FontFamily="Fonts/#Titillium Web"
                     FontSize="16"
                     Foreground="White"
-                    Template="{StaticResource tmpRoundedIconButton}" Click="btnPay_Click" 
-                    />
+                    Template="{StaticResource tmpRoundedIconButton}" />
             </Grid>
         </Border>
     </Grid>
