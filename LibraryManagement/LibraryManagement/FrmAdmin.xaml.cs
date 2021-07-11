@@ -48,19 +48,20 @@ namespace LibraryManagement
                     SqlDataReader reader = command1.ExecuteReader();
                     if (reader.HasRows)
                     {
+                      int counter = 1;
                         while (reader.Read())
                         {
                             lsAllMembersItems.Add(new lsAllMembersItem
                             {
-                                Info0 = reader.GetInt32(0),
-                                Info1 = reader.GetString(1),
-                                Info2 = reader.GetString(3),
-                                Info3 = reader.GetString(4),
-                                Info4 = reader.GetString(6)
-                            });
-
+                                
+                            Info0 = counter++,
+                            Info1 = reader.GetString(1),
+                            Info2 = reader.GetString(3),
+                            Info3 = reader.GetString(4),
+                            Info4 = reader.GetString(6)
+                          });
                         }
-                        reader.Close();
+                        reader.close();
 
                     }
                     else
@@ -68,46 +69,48 @@ namespace LibraryManagement
                         //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
                         reader.Close();
 
+
                     }
-                    reader = command2.ExecuteReader();
-                    if (reader.HasRows)
+                SqlDataReader reader2 = command2.ExecuteReader();
+                if (reader2.HasRows)
+                {
+                    int counter = 1;
+                    while (reader2.Read())
                     {
-                        while (reader.Read())
-                        {
+                       
                             lsAllBooksItems.Add(new lsAllMembersItem
                             {
-                                Info0 = reader.GetInt32(0),
-                                Info1 = reader.GetString(1),
-                                Info2 = reader.GetString(2),
-                                Info3 = reader.GetString(3),
-                                Info4 = reader.GetString(4)
-                            });
-
-                        }
-                        reader.Close();
+                            Info0 = counter++,
+                            Info1 = reader2.GetString(1),
+                            Info2 = reader2.GetString(2),
+                            Info3 = reader2.GetString(3),
+                            Info4 = reader2.GetInt32(5) + ""
+                        });
 
                     }
-                    else
+                    reader2.Close();
+
+                }
+                else
+                {
+                    reader2.Close();
+                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                }
+                SqlDataReader reader3 = command3.ExecuteReader();
+                if (reader3.HasRows)
+                {
+                    while (reader3.Read())
                     {
-                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
-                        reader.Close();
+                        balance = reader3.GetString(3);
                     }
-                    reader = command3.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            balance = reader.GetString(3);
-                        }
-                        reader.Close();
+                    reader3.Close();
 
-                    }
-                    else
-                    {
-                        //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
-                        reader.Close();
-                    }
-
+                }
+                else
+                {
+                    reader3.Close();
+                    //age list khali bood to front 1 text block bezar textesham bezar nothing to show.
+                }
 
                 }
 
@@ -172,15 +175,15 @@ namespace LibraryManagement
                         connection);
 
                     connection.Open();
-
                     SqlDataReader reader = command1.ExecuteReader();
                     if (reader.HasRows)
                     {
+                        int counter=1;
                         while (reader.Read())
                         {
                             lsAllMembersItems.Add(new lsAllMembersItem
                             {
-                                Info0 = reader.GetInt32(0),
+                                Info0 = counter++,
                                 Info1 = reader.GetString(1),
                                 Info2 = reader.GetString(3),
                                 Info3 = reader.GetString(4),
@@ -212,7 +215,10 @@ namespace LibraryManagement
 
         private void tabAdmin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            string qry = "DELETE FROM tblEmployees WHERE name='" + employeeslist[removed_index].Info1 + "'";
+            SqlCommand command = new SqlCommand(qry, con);
+            command.ExecuteNonQuery();
+            con.Close();
         }
 
         private void BtnPaySalaries_OnClick(object sender, RoutedEventArgs e)
@@ -471,6 +477,57 @@ namespace LibraryManagement
             FrmAddBook frmAddBook = new FrmAddBook();
             frmAddBook.Show();
             this.Close();
+        }
+
+        private void btnIncreaseBalance_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
+            if (tbIncreaseBalance.Text != "")
+            {
+                new FrmPayment(this, int.Parse(tbIncreaseBalance.Text), "admin").Show();
+            }
+            else
+            {
+                MessageBox.Show("Please specify the amount you want to increase your balance");
+            }
+        }
+
+        public void updateTabWallet()
+        {
+            SqlConnection connection = new SqlConnection(CONNECTION_STRING);
+            SqlCommand command3 = new SqlCommand(
+                    "SELECT * FROM tblAdmins;",
+                    connection);
+            connection.Open();
+            SqlDataReader reader3 = command3.ExecuteReader();
+            if (reader3.HasRows)
+            {
+                while (reader3.Read())
+                {
+                    lblLibraryBlalnce.Content = reader3.GetString(3);
+                }
+                reader3.Close();
+
+            }
+        }
+
+        private void edt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender.GetHashCode() == ((TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance)).GetHashCode())
+            {
+                TextBox tbIncreaseBalance = (TextBox)edtIncreaseBalance.Template.FindName("edt", edtIncreaseBalance);
+                tbIncreaseBalance.Text = new string(tbIncreaseBalance.Text.Where(c => char.IsDigit(c)).ToArray());
+            }
+        }
+
+        private void btnAddEmployee_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddBook_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

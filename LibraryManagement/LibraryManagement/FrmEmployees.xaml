@@ -9,6 +9,7 @@
     Width="920"
     Height="570"
     Background="#F6F5F5"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <ControlTemplate x:Key="tmpTabItem" TargetType="RadioButton">
@@ -179,7 +180,69 @@
                         <Label
                             Width="100"
                             Margin="10,0,0,0"
-                            Content="Publisher"
+                            Content="Count"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <ListBoxItem />
+                    </StackPanel>
+                    <ListBox
+                        Height="273"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{TemplateBinding ItemsSource}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template" Value="{StaticResource tmpListBooksItem}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpListBoxBorrowedBooks" TargetType="ListBox">
+            <Border
+                Margin="6,-2.5,6,0"
+                Background="Transparent"
+                BorderBrush="#7F4F5688"
+                BorderThickness="0,1,0,0">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <StackPanel Margin="16,12,0,5" Orientation="Horizontal">
+                        <Label
+                            Width="40"
+                            Margin="10,0,0,0"
+                            VerticalContentAlignment="Center"
+                            Content="#"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Book Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Member Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Borrow Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Return Date"
                             FontFamily="Fonts/#Titillium Web"
                             FontSize="14"
                             Foreground="#005A8D" />
@@ -330,6 +393,7 @@
                         <ListBoxItem />
                     </StackPanel>
                     <ListBox
+                        x:Name="lsAllMembers"
                         Height="273"
                         Margin="0,0,0,0"
                         Background="Transparent"
@@ -344,6 +408,233 @@
                     </ListBox>
                 </StackPanel>
             </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpListBoxDelayedReturns" TargetType="ListBox">
+            <Border
+                Margin="6,-2.5,6,0"
+                Background="Transparent"
+                BorderBrush="#7F4F5688"
+                BorderThickness="0,1,0,0">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <StackPanel Margin="16,12,0,5" Orientation="Horizontal">
+                        <Label
+                            Width="40"
+                            Margin="10,0,0,0"
+                            Content="#"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Book Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Member Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Boroow Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Return Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <ListBoxItem />
+                    </StackPanel>
+                    <ListBox
+                        Height="273"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{TemplateBinding ItemsSource}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template" Value="{StaticResource tmpListBooksItem}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpListBoxDelayedPays" TargetType="ListBox">
+            <Border
+                Margin="6,-2.5,6,0"
+                Background="Transparent"
+                BorderBrush="#7F4F5688"
+                BorderThickness="0,1,0,0">
+                <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+                    <StackPanel Margin="16,12,0,5" Orientation="Horizontal">
+                        <Label
+                            Width="40"
+                            Margin="10,0,0,0"
+                            Content="#"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Member Name"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Email"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Phone Number"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <Label
+                            Width="100"
+                            Margin="10,0,0,0"
+                            Content="Last Pay Date"
+                            FontFamily="Fonts/#Titillium Web"
+                            FontSize="14"
+                            Foreground="#005A8D" />
+                        <ListBoxItem />
+                    </StackPanel>
+                    <ListBox
+                        Height="273"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{TemplateBinding ItemsSource}"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template" Value="{StaticResource tmpListBooksItem}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpEditableRoundedTextBox" TargetType="TextBox">
+            <Border
+                x:Name="txtBoxBorder"
+                Background="#FFF5FD"
+                BorderBrush="#4CCBCDEE"
+                BorderThickness="0.3"
+                CornerRadius="14">
+                <Grid
+                    x:Name="pnlEditableRoundedTextBox"
+                    Width="{TemplateBinding Width}"
+                    Height="{TemplateBinding Height}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4.5*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox
+                        x:Name="edtEditableRoundedTextBox"
+                        Grid.Column="0"
+                        Margin="12,6,0,6"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        IsEnabled="False"
+                        Text="{TemplateBinding Text}"
+                        TextChanged="edtEditableRoundedTextBox_TextChanged" />
+                    <Button
+                        x:Name="imgEdit"
+                        Grid.Column="1"
+                        Width="30"
+                        Height="30"
+                        Margin="0,0,6,0"
+                        BorderThickness="0"
+                        Template="{StaticResource tmpEditButton}" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="true" />
+                        <Condition SourceName="edtEditableRoundedTextBox" Property="IsEnabled" Value="true" />
+                    </MultiTrigger.Conditions>
+                    <Setter TargetName="txtBoxBorder" Property="Background" Value="#FFF3EFF7" />
+                </MultiTrigger>
+                <EventTrigger RoutedEvent="Button.Click" SourceName="imgEdit">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <BooleanAnimationUsingKeyFrames Storyboard.TargetName="edtEditableRoundedTextBox" Storyboard.TargetProperty="(TextBox.IsEnabled)">
+                                <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
+                            </BooleanAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="tmpRoundedImage" TargetType="Button">
+            <Border
+                Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                BorderBrush="Black"
+                BorderThickness="2"
+                CornerRadius="90">
+                <Canvas Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <Image
+                        x:Name="imgProfile"
+                        Width="136"
+                        Height="136"
+                        Source="Images/profile.png"
+                        Stretch="Fill">
+                        <Image.Clip>
+                            <RectangleGeometry
+                                RadiusX="90"
+                                RadiusY="90"
+                                Rect="0,0,136,136" />
+                        </Image.Clip>
+                    </Image>
+                    <Button
+                        x:Name="btnSetPic"
+                        Canvas.Left="23"
+                        Canvas.Top="53"
+                        Width="90"
+                        Height="35"
+                        Background="#FFFFF5FD"
+                        Click="btnSetPic_Click"
+                        Content="Change"
+                        FontFamily="Fonts/#Titillium Web"
+                        FontSize="10"
+                        Foreground="Black"
+                        Opacity="0.8"
+                        Template="{DynamicResource tmpRoundedButton}"
+                        Visibility="Hidden" />
+                </Canvas>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="btnSetPic" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="imgProfile" Property="Effect">
+                        <Setter.Value>
+                            <BlurEffect />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+
+            </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
 
@@ -473,6 +764,7 @@
 
         <StackPanel Grid.Column="2" Orientation="Vertical">
             <Border
+                MaxHeight="220"
                 Margin="0,30,44,30"
                 Padding="6,3,6,3"
                 HorizontalAlignment="Right"
@@ -577,7 +869,7 @@
                                     Margin="-5.9,0,0,0"
                                     HorizontalContentAlignment="Stretch"
                                     BorderThickness="0"
-                                    Template="{StaticResource tmpListBoxBooks}" />
+                                    Template="{StaticResource tmpListBoxBorrowedBooks}" />
                             </TabItem>
                         </TabControl>
                     </Border>
@@ -632,7 +924,7 @@
                                     Margin="-5.9,0,0,0"
                                     HorizontalContentAlignment="Stretch"
                                     BorderThickness="0"
-                                    Template="{StaticResource tmpListBoxMembers}" />
+                                    Template="{StaticResource tmpListBoxDelayedReturns}" />
                             </TabItem>
                             <TabItem
                                 Name="tabItemDelayedPays"
@@ -645,7 +937,7 @@
                                     Margin="-5.9,0,0,0"
                                     HorizontalContentAlignment="Stretch"
                                     BorderThickness="0"
-                                    Template="{StaticResource tmpListBoxMembers}" />
+                                    Template="{StaticResource tmpListBoxDelayedPays}" />
                             </TabItem>
                         </TabControl>
                     </Border>
@@ -793,7 +1085,7 @@
                                                 VerticalAlignment="Stretch"
                                                 VerticalContentAlignment="Center"
                                                 FontFamily="Fonts/#Titillium Web"
-                                                Template="{DynamicResource tmpEditableRoundedTextBox}"
+                                                Template="{StaticResource tmpEditableRoundedTextBox}"
                                                 Text="09911557553" />
                                         </StackPanel>
                                     </Grid>
@@ -862,6 +1154,7 @@
                             VerticalAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"
+                            Click="btnApplyChanges_Click"
                             Content="Apply Changes"
                             FontSize="15"
                             FontWeight="Bold"

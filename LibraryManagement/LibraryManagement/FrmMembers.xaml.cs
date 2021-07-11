@@ -20,7 +20,7 @@ namespace LibraryManagement
     {
         const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         const double MONTHLY_MEMBERSHIP_FEE = 50;
-        string memberName = "hamid2";
+        string memberName = "hamid";
         Member member;
         List<fourParameterLsItem> lsAllBooksItems;
         List<fourParameterLsItem> lsMyBooksItems;
@@ -279,7 +279,7 @@ namespace LibraryManagement
         private void updateProfilePic()
         {
             Image imgProfile = (Image)btnProfile.Template.FindName("imgProfile", btnProfile);
-            if (imgProfile != null)
+            if (imgProfile != null && member.picture!=null)
             {
                 imgProfile.Source = Utils.BytesToImage(member.picture);
             }
@@ -313,6 +313,15 @@ namespace LibraryManagement
                 con.Open();
                 command.ExecuteNonQuery();
                 con.Close();
+                ///update Member
+                member.name = newName;
+                member.email = newEmail;
+                member.phoneNumber = newPhone;
+                member.password = newPass;
+                lblMemberName.Content = newName;
+                ///
+                MessageBox.Show("Changed Successfuly");
+
             }
             catch (SqlException ex)
             {
