@@ -23,21 +23,33 @@ namespace LibraryManagement
     {
         byte[] imageBytes = null;
 
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         private lsAllEmployeesItem employee;
+        private string balance = "";
+
         public FrmEmployees(lsAllEmployeesItem Employee)
         {
-            employee = Employee;
-            InitializeComponent();
-            lsAllMembers.ItemsSource = getAllMembersFromDB();
-            lblEmployeeName.Content = Employee.Info1;
-            lblEmployeeWalletBalance.Content = Employee.Info7 + "$";
-            lsAllBooks.ItemsSource = GetAllBooksFromDB();
-            lsBorrowedBooks.ItemsSource = GetAllBorrowingsFromDB();
-            edtEmail.Text = employee.Info3;
-            edtUserName.Text = employee.Info1;
-            edtPhoneNumber.Text = employee.Info4;
-            lsAvailableBooks.ItemsSource = GetAvailablebooksFromDB();
+            try
+            {
+                employee = Employee;
+                InitializeComponent();
+                lsAllMembers.ItemsSource = getAllMembersFromDB();
+                lblEmployeeName.Content = Employee.Info1;
+                lblEmployeeWalletBalance.Content = Employee.Info7 + "$";
+                lsAllBooks.ItemsSource = GetAllBooksFromDB();
+                lsBorrowedBooks.ItemsSource = GetAllBorrowingsFromDB();
+                edtEmail.Text = employee.Info3;
+                edtUserName.Text = employee.Info1;
+                edtPhoneNumber.Text = employee.Info4;
+                lsAvailableBooks.ItemsSource = GetAvailablebooksFromDB();
+                lblEmployeeWalletBalance.Content = employee.Info7 + "$";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+           
+            
         }
 
         private void rbBooks_Checked(object sender, RoutedEventArgs e)
@@ -97,6 +109,40 @@ namespace LibraryManagement
                 MessageBox.Show(er.Message);
             }
             return borrowings;
+        }
+        public List<lsAllEmployeesItem> GetAllEmployeesfromdb()
+        {
+            List<lsAllEmployeesItem> employees = new List<lsAllEmployeesItem>();
+            try
+            {
+                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                con.Open();
+                string qry = "select * from tblEmployees";
+                SqlCommand command = new SqlCommand(qry, con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    employees.Add(new lsAllEmployeesItem
+                    {
+                        Info0 = (int)reader.GetInt32(0),
+                        Info1 = (string)reader.GetString(1),
+                        Info2 = (string)reader.GetString(2),
+                        Info3 = (string)reader.GetString(3),
+                        Info4 = (string)reader.GetString(4),
+                        Info5 = (string)reader.GetString(5),
+                        Info6 = (string)reader.GetString(6),
+                        Info7 = (string)reader.GetString(7)
+
+
+                    });
+                }
+                con.Close();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message);
+            }
+            return employees;
         }
         public List<lsAllBooksItem> GetAllBooksFromDB()
         {
@@ -192,58 +238,59 @@ namespace LibraryManagement
 
         private void BtnApplyChanges_OnClick(object sender, RoutedEventArgs e)
         {
-
-            TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edtEditableRoundedTextBox", edtUserName);
-            PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
-            TextBox tbphonenumber = (TextBox)edtPhoneNumber.Template.FindName("edtEditableRoundedTextBox", edtPhoneNumber);
-            TextBox tbemail = (TextBox)edtEmail.Template.FindName("edtEditableRoundedTextBox", edtEmail);
-
-            SqlConnection con = new SqlConnection(CONNECTION_STRING);
-            con.Open();
-
-
-            if (tbPassword.Password == employee.Info2)
+            try
             {
-                if (checkName(tbUserName.Text))
+                TextBox tbUserName = (TextBox)edtUserName.Template.FindName("edtEditableRoundedTextBox", edtUserName);
+                PasswordBox tbPassword = (PasswordBox)edtPassword.Template.FindName("edt", edtPassword);
+                TextBox tbphonenumber = (TextBox)edtPhoneNumber.Template.FindName("edtEditableRoundedTextBox", edtPhoneNumber);
+                TextBox tbemail = (TextBox)edtEmail.Template.FindName("edtEditableRoundedTextBox", edtEmail);
+
+                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                con.Open();
+
+
+                if (tbPassword.Password == employee.Info2)
                 {
-                    string qry = "update tblEmployees set name='" + tbUserName.Text + "' where name='" + employee.Info1 + "'";
-                    SqlCommand command = new SqlCommand(qry, con);
-                    command.ExecuteNonQuery();
+                    if (checkName(tbUserName.Text))
+                    {
+                        string qry = "update tblEmployees set name='" + tbUserName.Text + "' where name='" + employee.Info1 + "'";
+                        SqlCommand command = new SqlCommand(qry, con);
+                        command.ExecuteNonQuery();
+
+                    }
+
+                    if (checkPhoneNumber(tbphonenumber.Text))
+                    {
+                        string qry = "update tblEmployees set phoneNumber='" + tbphonenumber.Text + "' where name='" + employee.Info1 + "'";
+                        SqlCommand command = new SqlCommand(qry, con);
+                        command.ExecuteNonQuery();
+                    }
+
+                    if (checkMail(tbemail.Text))
+                    {
+                        string qry = "update tblEmployees set email='" + tbemail.Text + "' where name='" + employee.Info1 + "'";
+                        SqlCommand command = new SqlCommand(qry, con);
+                        command.ExecuteNonQuery();
+                    }
+
+                    if (imageBytes != null)
+                    {
+                        string qry = "UPDATE tblEmployees SET picture=@pic where name='" + employee.Info1 + "'";
+                        SqlCommand cmd = new SqlCommand(qry, con);
+                        cmd.CommandText = qry;
+                        cmd.Parameters.AddWithValue("@pic", imageBytes);
+                        cmd.ExecuteNonQuery();
+                    }
 
                 }
-                
-                if (checkPhoneNumber(tbphonenumber.Text))
-                {
-                    string qry = "update tblEmployees set phoneNumber='" + tbphonenumber.Text + "' where name='" + employee.Info1 + "'";
-                    SqlCommand command = new SqlCommand(qry, con);
-                    command.ExecuteNonQuery();
-                }
-                
-                if (checkMail(tbemail.Text))
-                {
-                    string qry = "update tblEmployees set email='" + tbemail.Text + "' where name='" + employee.Info1 + "'";
-                    SqlCommand command = new SqlCommand(qry, con);
-                    command.ExecuteNonQuery();
-                }
 
-                if (imageBytes != null)
-                {
-                    string qry = "UPDATE tblEmployees SET picture=@pic where name='" + employee.Info1 + "'";
-                    SqlCommand cmd = new SqlCommand(qry, con);
-                    cmd.CommandText = qry;
-                    cmd.Parameters.AddWithValue("@pic", imageBytes);
-                    cmd.ExecuteNonQuery();
-                }
+                con.Close();
 
             }
-
-            con.Close();
-
-
-
-
-
-
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
 
         }
         public bool checkName(string name)

@@ -221,7 +221,7 @@
                     BorderBrush="#005A8D"
                     Foreground="White"
                         FontSize="17"
-                    FontFamily="Fonts/#Titillium Web"/>
+                    FontFamily="Fonts/#Titillium Web" Click="btnLogin_Click_1"/>
 
             </Grid>
         </Border>
