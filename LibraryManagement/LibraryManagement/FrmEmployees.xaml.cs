@@ -23,22 +23,33 @@ namespace LibraryManagement
     {
         byte[] imageBytes = null;
 
-        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\asus\source\repos\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
+        const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\LibraryFinal\LibraryManagement\LibraryManagement\db\Library.mdf;Integrated Security=True;Connect Timeout=30";
         private lsAllEmployeesItem employee;
+        private string balance = "";
         List<lsAllMembersItem> allMembers;
         public FrmEmployees(lsAllEmployeesItem Employee)
         {
-            employee = Employee;
-            InitializeComponent();
-            lsAllMembers.ItemsSource = getAllMembersFromDB();
-            lblEmployeeName.Content = Employee.Info1;
-            lblEmployeeWalletBalance.Content = Employee.Info7 + "$";
-            lsAllBooks.ItemsSource = GetAllBooksFromDB();
-            lsBorrowedBooks.ItemsSource = GetAllBorrowingsFromDB();
-            edtEmail.Text = employee.Info3;
-            edtUserName.Text = employee.Info1;
-            edtPhoneNumber.Text = employee.Info4;
-            lsAvailableBooks.ItemsSource = GetAvailablebooksFromDB();
+            try
+            {
+                employee = Employee;
+                InitializeComponent();
+                lsAllMembers.ItemsSource = getAllMembersFromDB();
+                lblEmployeeName.Content = Employee.Info1;
+                lblEmployeeWalletBalance.Content = Employee.Info7 + "$";
+                lsAllBooks.ItemsSource = GetAllBooksFromDB();
+                lsBorrowedBooks.ItemsSource = GetAllBorrowingsFromDB();
+                edtEmail.Text = employee.Info3;
+                edtUserName.Text = employee.Info1;
+                edtPhoneNumber.Text = employee.Info4;
+                lsAvailableBooks.ItemsSource = GetAvailablebooksFromDB();
+                lblEmployeeWalletBalance.Content = employee.Info7 + "$";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+           
+            
         }
 
         private void rbBooks_Checked(object sender, RoutedEventArgs e)
@@ -98,6 +109,40 @@ namespace LibraryManagement
                 MessageBox.Show(er.Message);
             }
             return borrowings;
+        }
+        public List<lsAllEmployeesItem> GetAllEmployeesfromdb()
+        {
+            List<lsAllEmployeesItem> employees = new List<lsAllEmployeesItem>();
+            try
+            {
+                SqlConnection con = new SqlConnection(CONNECTION_STRING);
+                con.Open();
+                string qry = "select * from tblEmployees";
+                SqlCommand command = new SqlCommand(qry, con);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    employees.Add(new lsAllEmployeesItem
+                    {
+                        Info0 = (int)reader.GetInt32(0),
+                        Info1 = (string)reader.GetString(1),
+                        Info2 = (string)reader.GetString(2),
+                        Info3 = (string)reader.GetString(3),
+                        Info4 = (string)reader.GetString(4),
+                        Info5 = (string)reader.GetString(5),
+                        Info6 = (string)reader.GetString(6),
+                        Info7 = (string)reader.GetString(7)
+
+
+                    });
+                }
+                con.Close();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message);
+            }
+            return employees;
         }
         public List<lsAllBooksItem> GetAllBooksFromDB()
         {

@@ -271,6 +271,7 @@
                     FontFamily="Fonts/#Titillium Web"
                     FontSize="17"
                     Foreground="White"
+                    FontFamily="Fonts/#Titillium Web" Click="btnLogin_Click_1"
                     Template="{StaticResource tmpRoundedIconButton}" />
 
             </Grid>

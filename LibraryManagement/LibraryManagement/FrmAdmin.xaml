@@ -211,7 +211,7 @@
                         Content="Remove"
                         FontFamily="Fonts/#Titillium Web"
                         FontSize="12"
-                        Foreground="#022E57" />
+                        Foreground="#022E57" Click="btnListEmployeesItemRemove_Click_1" />
                 </StackPanel>
             </Border>
             <ControlTemplate.Triggers>
@@ -272,6 +272,7 @@
                     <ListBox
                         x:Name="EmployeesListbox"
                         Height="265"
+                        Name="EmployeesListbox"
                         Margin="0,0,0,0"
                         Background="Transparent"
                         BorderThickness="0"
@@ -576,9 +577,10 @@
                                 Content="Add Employee"
                                 FontSize="15"
                                 FontWeight="Bold"
-                                Template="{DynamicResource tmpElevatedButton}" />
+                                Template="{DynamicResource tmpElevatedButton}" Click="btnAddEmployee_Click" />
                             <Button
                                 Name="btnPaySalaries"
+                                Click="BtnPaySalaries_OnClick"
                                 Width="150"
                                 Height="50"
                                 Margin="20,0,0,30"
@@ -634,7 +636,7 @@
                             Content="Add Book"
                             FontSize="15"
                             FontWeight="Bold"
-                            Template="{DynamicResource tmpElevatedButton}" />
+                            Template="{DynamicResource tmpElevatedButton}" Click="btnAddBook_Click" />
                     </StackPanel>
                 </TabItem>
                 <TabItem x:Name="tabItemWallet" Visibility="Collapsed">

@@ -139,7 +139,7 @@
                     Width="130"
                     Height="130"
                     Margin="20,10,0,0"
-                    Template="{StaticResource tmpRoundedImage}">
+                    Template="{StaticResource tmpRoundedImage}" Click="btnProfile_Click">
                     <Button
                         Width="75"
                         Height="100"
